@@ -1,0 +1,122 @@
+/*
+
+  SysBar/2 Utility Set  version 0.23
+
+  CD Player dialogs
+
+  ..................................................................
+
+  Copyright (c) 1995-1999  Dmitry I. Platonoff <dip@platonoff.com>
+  Copyright (c) 2002,04    Max Alekseyev       <relf@os2.ru>
+
+                           All rights reserved
+
+  ..................................................................
+
+  LICENSE
+  ~~~~~~~
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the following
+     disclaimer in the documentation and/or other materials provided
+     with the distribution.
+
+  3. Redistributions of any form whatsoever, as well as all
+     advertising materials mentioning features or use of this
+     software (if any), must include the following acknowledgment:
+     "This product includes software developed by Dmitry I. Platonoff".
+
+  4. The names "SysBar/2" and "Dmitry I. Platonoff" must not be
+     used to endorse or promote products derived from this software
+     without prior written permission. For such permission, please
+     contact dplatonoff@canada.com.
+
+  5. Products derived from this software may not be called
+     "SysBar/2" nor may "Dmitry I. Platonoff" appear in their
+     contributor lists without prior written permission.
+
+  ..................................................................
+
+  DISCLAIMER
+  ~~~~~~~~~~
+  THIS SOFTWARE IS PROVIDED BY THE AUTHOR OR CONTRIBUTORS "AS IS"
+  AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  AUTHOR OR THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*/
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "sb2_cd_res.h"
+
+DLGTEMPLATE DLG_ABOUT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "About SysBar/2 CD Player", DLG_ABOUT, 0, 0, 180, 85, NOT 
+            FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "", D_Version, 4, 29, 152, 50
+        LTEXT           "SysBar/2 CD Player", 401, 10, 58, 140, 10, DT_VCENTER | DT_WORDBREAK
+        LTEXT           "", D_Copyright1, 10, 47, 140, 10, 	DT_VCENTER | DT_WORDBREAK
+        LTEXT           "", D_Copyright2, 10, 36, 140, 10, 	DT_VCENTER | DT_WORDBREAK
+        ICON            ICO_MAIN, ICO_MAIN, 166, 60, 21, 16, WS_GROUP
+        ICON            ICO_REDALLIGATOR, ICO_REDALLIGATOR, 7, 5, 21, 16, WS_GROUP
+        LTEXT           "Special thanks to Andrew Terñshechkin\012AKA ""Red Alligator""  (ra@promex.ru)", 411, 34, 4, 132, 16, DT_WORDBREAK
+    END
+END
+
+DLGTEMPLATE DLG_SETTINGS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "SysBar/2 CD player settings", DLG_SETTINGS, 0, 0, 168, 102, NOT 
+            FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "Display on top", D_Display, 4, 52, 57, 49
+        AUTORADIOBUTTON "~No", D_Display_None, 11, 82, 45, 10, WS_GROUP
+        AUTORADIOBUTTON "~Always", D_Display_OnTop, 11, 73, 45, 10
+        AUTORADIOBUTTON "Pop-~up", D_Display_Popup, 11, 64, 45, 10
+        AUTORADIOBUTTON "Pop/~hide", D_Display_Popup2, 11, 55, 45, 10
+        GROUPBOX        "Bind to corner", D_Bind_Corner, 64, 71, 57, 30
+        AUTORADIOBUTTON "Of~f", D_Bind_Off, 83, 79, 22, 10, WS_GROUP
+        AUTORADIOBUTTON "", D_Bind_NW, 69, 84, 10, 10
+        AUTORADIOBUTTON "", D_Bind_NE, 107, 84, 10, 10
+        AUTORADIOBUTTON "", D_Bind_SW, 69, 72, 10, 10
+        AUTORADIOBUTTON "", D_Bind_SE, 107, 72, 10, 10
+        GROUPBOX        "Size", D_Size, 124, 71, 42, 30
+        AUTORADIOBUTTON "~Small", D_Size_Small, 130, 83, 32, 10, WS_GROUP
+        AUTORADIOBUTTON "~Large", D_Size_Large, 130, 74, 31, 10
+        AUTOCHECKBOX    "~Monochrome", D_Display_Mono, 65, 60, 60, 10, 
+                        WS_GROUP
+        AUTOCHECKBOX    "Loc~k position", D_Lock_Position, 65, 50, 60, 10
+        GROUPBOX        "Player", D_Player, 4, 8, 162, 42
+        LTEXT           "Drive", D_Player_DriveT, 10, 32, 24, 8
+        CONTROL         "", D_Player_Drive, 30, 1, 32, 40, WC_COMBOBOX, 
+                        CBS_DROPDOWN | WS_GROUP | WS_TABSTOP | WS_VISIBLE
+        PUSHBUTTON      "S~et", D_Player_DriveS, 64, 31, 26, 11, WS_GROUP
+        AUTOCHECKBOX    "Au~todetect drive", D_Player_Autodetect, 10, 21, 67, 
+                        10, WS_GROUP
+        AUTOCHECKBOX    "Auto ~play inserted CD", D_Player_AutoPlay, 10, 11, 
+                        84, 10
+        AUTORADIOBUTTON "N~ormal order", D_Order_Continuous, 95, 31, 66, 10, 
+                        WS_GROUP | WS_TABSTOP
+        AUTORADIOBUTTON "~Random order", D_Order_Random, 95, 21, 66, 10, 
+                        WS_TABSTOP
+        AUTOCHECKBOX    "Loop ~disc", D_Loop_Disc, 95, 11, 66, 10, WS_GROUP
+    END
+END

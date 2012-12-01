@@ -1,0 +1,454 @@
+
+                                  SysBar/2
+                                 ~~~~~~~~~~
+                     Ein Werkzeugleisten-Tool fÅr OS/2 PM
+                                Version 0.16
+                     (http://www.lab321.ru/~dip/sysbar2)
+
+                     (c) Dmitry I. Platonoff, 1995-1998
+                            (2:5004/8.4@fidonet
+                                dip@lab321.ru)
+
+
+                               **************
+                                README Datei
+                               **************
+
+
+===============================================================================
+                                  öBERSICHT
+-------------------------------------------------------------------------------
+SysBar/2 ist die nÑchste Generation von SysBar, einem Werkzeugleisten-Tool.
+Die erste Version (Win16) entstand 1995 unter dem Eindruck der Win95 Task-
+leiste (gesehen in frÅhen Betas). Ihr Aussehen entsprach dem OS/2 Warp 4.0
+Warpcenter (einem Jahr vor dem Erscheinen von Warp 4 ;) mit gleicher
+FunktionalitÑt : Taskleiste, Schubladen und Status-Anzeigen. Ich benutze
+sie jetzt unter WIN-OS/2 und sogar unter Win NT 3.51 zum Start von Programmen.
+
+In dieser neuen Generation entschied ich, das komplette Produkt in mehrere
+Teilbereiche zu unterteilen. Diese vier Module sind:
+
+   - Uhr (die ich am Windows Sysbar wirklich vermi·te) - funktioniert
+     auch sehr gut auf der Warpcenter Uhr :)
+
+   - eine sehr nÅtzliche Taskleiste
+     (kann Åber anderen Windows schweben)
+
+   - ein Pipe-Monitor - Der Pipe-Monitor kann Daten aus einer beliebigen
+     Anzahl von Named-Pipes auslesen und am Bildschirm als eine Reihe
+     von Zellen darstellen
+
+   - ein CD-Spieler (Ich bin kein Freund von gro·en Fenstern
+     wie z.B. CD-in-a-Box oder Albatros)
+
+===============================================================================
+                                DISTRIBUTION
+-------------------------------------------------------------------------------
+SysBar/2 ist *FREEWARE*. Dieses Programm wurde entwickelt und vertrieben, in
+der Hoffnung nÅtzlich zu sein, aber OHNE JEGLICHE GARANTIE.
+
+===============================================================================
+                                ANFORDERUNGEN
+-------------------------------------------------------------------------------
+Alles was Sie brauchen ist ein 486-Computer und OS/2 Warp 4.
+Alles funktioniert auch unter Warp 3.0 (und sogar unter 2.11 - wurde
+aber mangels System nicht getestet, Bitte informieren Sie mich, falls
+Sie die Mîglichkeit eines Tests haben). Eine installierte TCP/IP-
+UnterstÅtzung bringt Ihnen zusÑtzliche FunktionalitÑt von Sysbar/2,
+ist aber nicht zwingend notwendig (Verwendung von dynamischen DLL-Bindungen).
+
+===============================================================================
+                                INSTALLATION
+-------------------------------------------------------------------------------
+Es gibt keine anspruchsvolle Installationssoftware. Sie mÅssen lediglich
+das Archiv in einem Verz. auspacken (UNZIP) und geniessen! ;)
+Das Script SB2_FLDR.CMD erstellt einen Ordner mit allen Icons auf
+der ArbeitsoberflÑche.
+
+Das Archiv enthÑlt folgende Dateien:
+
+        FILE_ID .DIZ      349  - Kurzbeschreibung
+        SB2_CD  .Exe   31,676  - Programm CD-player
+        SB2_CLCK.Exe   21,344  - Programm Uhr
+        SB2_FLD1.ICO    4,026  - Icon des Orderns
+        SB2_FLD2.ICO    4,026  - Icon des geîffneten Ordners
+        SB2_FLDR.CMD    1,080  - Script zum Erstellen der Icons
+        SB2_Pipe.Exe   57,009  - Programm Pipe-Monitor
+        SB2_TSWT.Exe   30,728  - Programm Taskleiste
+        sysbar2 .dll   20,097  - eine DLL mit allgemeinen GUI-Subroutinen
+        \docs                  - Dokumentation
+        \info_src              - Informationen, Beispiele, Quellcode
+
+
+===============================================================================
+                                 BENUTZUNG
+-------------------------------------------------------------------------------
+Alle Module haben den gleichen Aufbau, verhalten sich gleich und haben die
+gleichen Bedienmîglichkeiten. Sie kînnen jedes Modul mit der linken Maustaste
+beliebig verschieben und mit der rechten Maustaste ein MenÅ aufrufen (mit
+einer Ausnahme : in der Taskleiste erhalten Sie nur im freien Bereich das
+KontextmenÅ der Taskleiste, ansonsten erhalten Sie ein Task-spezifisches
+KontextmenÅ).
+
+Alle Module haben einen modernen 'Einstellungen'-Dialog. Alle énderungen
+wirken sofort. Jedes Modul speichert die Einstellungen in einer normalen
+Text .Cfg-Datei. Sie kînnen diese Dateien (bei Bedarf) auch editieren.
+Ausserdem kann beim Start eines Moduls als erster Parameter eine alternative
+Konfigurations-Datei Åbergeben werden. (z.B. beim mehrfachen Start des
+Pipe-Monitors mit verschiedenen Einstellungen/Pipes).
+
+Alle Aktionen sind einfach zu verstehen, trotzdem werde ich einige
+Modul-spezifische Funktionen beschreiben...
+
+* UHR
+
+      Sie dient nur einer Sache - Anzeige und Einstellung von Zeit und
+      Datum. Das war's.
+
+* TASKLEISTE
+
+      Eine Reihe von Icons reprÑsentativ fÅr jeden laufendes Programm
+      und jedes offene Fenster.
+      Die Anzeige der Icons kann gefiltert werden (zeigen/nicht zeigen),
+      au·erdem kînnen je Icon verschiedene Aktionen durchgefÅhrt werden.
+
+      Die Steuerung der Anzeige der Icons geschieht Åber sogenannte
+      Ausnahmen. Jede Ausnahme braucht einen Titel der mit den
+      Anfangsbuchstaben des Programms Åbereinstimmen mu·. (z.B. kann
+      mit der Ausnahme 'ARBEITSOBERFLéCHE' das Icon fÅr die Arbeits-
+      oberflÑche gesteuert werden, die Ausnahme 'OS/2' steuert
+      OS/2 Kommandozeile und OS/2 System, etc.). FÅr jede Ausnahme
+      kann gewÑhlt werden ob das Icon in der Taskleiste erscheinen
+      soll und ob das Programm in der Fensterliste (Aufruf mit Strg-ESC)
+      erscheinen soll. Au·erdem kann das Programm aus der Alt-ESC
+      Reihenfolge genommen werden (non-jumpable).
+
+      BITTE KEINE LEEREN AUSNAHMEN DEFINIEREN!
+
+      Maus-Aktionen (beim Klicken aus das Icon):
+
+        LINKE TASTE - Zum Programm wechseln falls es z.Zt.
+        minimiert ist bzw. Prg. minimieren falls es z.Zt aktiv ist.
+
+        RECHTE TASTE - Gleiches MenÅ wie das System-MenÅ das Programms.
+
+        RECHTS mit LINKS (klicken der RECHTEN TASTE mit bereits gehaltener
+        LINKER TASTE - minimieren des Programms.
+
+        LINKS mit RECHTS - Schlie·en der Applikation.
+
+      NatÅrlich kînnen die Maustasten vertauscht werden.
+
+* Der PIPE-MONITOR
+      kann folgendes:
+
+      - Anzeige der CPU-Last
+      - Anzeige des verfÅgbaren physikalischen Speichers
+      - Anzeige der verfÅgbaren FestplattenkapazitÑt
+      - öberwachung einer Dateigrî·e und Anzahl
+      - öberwachung des Batteriestatus
+      - Anzeige der aktuellen Zeit
+      - Anzeige des aktuellen Datums
+      - Anzeige der Zeit seit dem Systemstart
+      - Anzeige der Anzahl der zur Zeit laufenden Prozesse und Threads
+      - öberwachung eines POP3-Briefkastens
+      - Anzeige einer Statistik Åber den Netzwerkdurchsatz
+      - Anzeige der aktuellen Tastaturbelegung des 'Keyboard Layer/2 KBD
+        switchers'
+      - ôffnen einer Anzahl von Named-Pipes (im Server-Modus) und
+        lesen von Daten aus diesen Quellen. Jeder Text der gelesen wird,
+        wird in einer seperaten Zelle (fÅr jede Pipe) mit einer eigenen
+        Farbe angezeigt. Da· ist praktisch fÅr die Anzeige von System-
+        informationen, zum Finden von Fehlern (debug), zur Anzeige von
+        Meldungen, etc.
+
+      Formatierungsoptionen:
+      ~~~~~~~~~~~~~~~~~~~~~
+      Manche Zellen kînnen die Byte-Anzahlen anzeigen (z.B Dateigrî·e
+      und verfÅgbare PlattenkapazitÑt). Bei diesen Zellen kann eingestellt
+      werden, ob die Anzeige in Mega-Bytes, Kilo-Bytes oder Bytes erfolgen
+      soll und wie die Zelle benannt werden soll.
+
+      Jede Zelle hat ihre eigenen Formatierungsoptionen und Grund-
+      einstellungen. Diese Einstellungen befinden sich auf der zweiten
+      Seite des Einstellungsdialogs.
+
+      Zelleneinstellungen:
+      ~~~~~~~~~~~~~~~~~~~
+      Im Einstellungsdialog gibt es eine Seite Names 'Cells'. Diese Seite
+      erlaubt die Steuerung der Zellen. Man kann Zellen erîffnen,
+      Einstellungen Ñndern, spezielle Parameter zuweisen, etc.
+
+      Jede Zelle hat einen eigenen Namen und eine eigene Farbe. Im Feld
+      'Prefix' kann ein Text hinterlegt werden der am Anfang des Zellentexts
+      angezeigt wird. (damit man weiss was diese Zelle macht :). Eine
+      anderes Feld 'Empty' definiert einen Text der angezeigt wird falls
+      eine leere Nachricht eintrifft.
+
+      FÅr jede Zelle kînnen zwei Applikationen definiert werden: Die erste
+      wird gestartet bei einem Doppelklick, die zweite bei einer TextÑnderung
+      in der Zelle. BITTE MIT VORSICHT BENUTZEN! Diese Option ist nicht
+      sinnvoll bei hÑufig sich Ñndernden Zellen wie z.B. Uhr oder CPU-Meter!
+      Aber sehr praktisch zum Start des Mail-Programms beim Eintreffen einer
+      Mail. Bitte beachten Sie da· kein Start bei einer leeren Nachricht
+      oder nach einem manuellen Lîschen erfolgt. Bitte tragen Sie den Namen
+      der Appliaktion direkt ein (z.B. d:\mein_Dir\Mein_Prg.exe) oder
+      benutzen Sie den Browse-Button zum Suchen des Programms. Kommando-
+      zeilenparameter kînnen eingetragen werden, ebenso der spezielle
+      Parameter "%s" der durch den aktuellen Zellentext ersetzt wird.
+
+      Alle ZellenÑnderungen kînnen in einem interen Puffer oder in einer
+      externen Protokoll-Datei mitgeschrieben werden. Sie kînnen einen
+      Dateinamen zuweisen, die Option 'timestamping' einschalten und
+      die Grî·e des internen Puffers einstellen und erhalten eine Mîglichkeit
+      die letzten énderungen zu erkennen.
+
+      Beim Erstellen einer Zelle mu· der Typ und verschiedene spezielle
+      Parameter angegeben werden. Beim DrÅcken auf 'Setup' erscheint ein
+      Einstellungsdialog in dem der Typ und seine Parameter eingestellt
+      werden kînnen.
+
+      Zur VerfÅgung stehen folgende Typen:
+
+      - "CPU load meter" - CPU-Last
+
+        Zeigt die CPU-Last in Prozent an. Es gibt einen Anzeigeintervall
+        und die Mîglichkeit die Anzeige auf zwei Stellen zu beschrÑnken
+        (max. 99 %). Au·erdem gibt es eine alternative Methode zum
+        feststellen der CPU-Last auf Systemen mit den neusten Fixpacks.
+        Diese Option hei·t : Use newer DosPerfSysCall method.
+        Die alte Methode kann auf verschiedenen Systemen zu AbstÅrzen
+        fÅhren, obwohl sie auf anderen Systemen problemlos lÑuft.
+        Darum wurde diese zweite Option eingefÅhrt.
+
+      - "available memory" - VerfÅgbarer Phys. Speicher
+
+        Zeigt des verfÅgbaren physikalischen Speicher an und hat
+        einen Anzeigeintervall.
+
+      - "pipe listener" - öberwachung einer Pipe
+
+        Anzeige jeden Textes der durch diese Pipe kommt in einer Zelle.
+        Es gibt zwei Parameter : den exakten Device-Namen und eine
+        optionale Zeit. Diese Zeit macht die Zelle zeitsensitiv
+        d.h. die angezeigt Information verschwindet falls die Zeit
+        abgelaufen ist.
+        Die spezielle Pipe mit dem Namen "Keyboard Layer/2 Pipe"
+        ist vordefiniert und gedacht fÅr die Benutzung mit dem Keyboard
+        layer/2 switcher von Dmitry Steklenev. (Mehr Informationen zum
+        Keyboard layer/2 switcher gibt es auf seiner Web-Seite
+        http://glass.os2.spb.ru).
+
+      - "disk free space" - Freie FestplattenkapazitÑt
+
+        Anzeige des freien Platzes auf der Festplatte.
+        Parameter : Laufwerk, Anzeigeintervall, Formatiersungsoption.
+
+      - "file monitor" - Dateigrî·e und/oder Dateianzahl
+
+        Anzeige der Dateigrî·e und/oder Dateianzahl fÅr die
+        angegebene Dateimaske. Parameter : Dateimaske, Anzeigeintervall,
+        Formatierungsoptionen.
+
+      - "battery status" - Batteriestatus
+
+        Anzeige des Batteriestatuses (mit Anzeigeintervall).
+        BEMERKUNG : Nur mîglich bei installiertem 'advanced power management'
+        (APM.SYS).
+
+      - "clock" - Uhr
+
+        Anzeige der Uhrzeit (mit Anzeigeintervall).
+        Parameter : Anzeige der Sekunden und AM/PM / 24-Stunden-Modus.
+
+      - "calendar" - Kalender
+
+        Anzeige des Datums (mit Anzeigeintervall). Zur Einstellung dienen
+        vier Schalter : Ein/Ausschalten des Wochentages, des Monats und des
+        Jahres, au·erdem Umschalten der Monatsanzeige.
+        Eigentlich sind die Uhrzeit- und Kalenderzelle nÅtzlicher, aber mir
+        gefÑllt die LCD-Anzeige des Uhrzeit-Moduls.
+
+        Die Bezeichnungen der Wochentage und Monate kînnen in der Datei
+        SB2_PIPE.CFG (am Ende) angepa·t werden (z.B. andere Sprachen).
+
+      - "system uptime" - Laufzeit des Systems seit dem letzten Booten
+        Einzustellen sind der Anzeigeintervall, au·erdem kann die
+        Anzeige der Sekunden und Tage ein- und ausgeschaltet werden.
+
+      - "system processes" - Systemproze·e
+        Anzeige der Anzahl der aktive Programme, Proze·e, Threads und
+        Module. Einzustellen sind der Anzeigeintervall, au·erdem gibt es
+        vier Schalter zum Ein- und Ausschalten der genannten ZÑhler.
+
+      - "POP3 Mailbox" - Zeigt die Anzahl der Nachrichten und des Gesamt-
+        grî·e auf dem Mailserver. Einzustellen sind der Anzeigeintervall
+        (Ich empfehle keinen Intervall kleiner als eine Minute), die
+        Server-URL und drei Schalter fÅr das Erscheinungsbild der ZÑhler
+        und der Anzeige von Kommunikationsfehlern.
+
+        Die Adresse des Mailservers (URL) wird in der Standardform
+        "user:password@host:port" z.B. "scott:tiger@orcale.com"
+        angegeben. Der Port ist optional, Standardwert ist 110.
+
+      - "incoming IP traffic" und "outgoing IP traffic" - zeigen eine
+        Statistik des Datendurchsatzes Åber die IP-Interfaces an. Im
+        einzelnen wÑren da: aktueller, durchschnittlicher und hîchster
+        Durchsatz in Zeichen pro Sekunde (CPS), Gesamtanzahl Åbertragener
+        Bytes. Zum Einstellen gibt es einen Anzeigeintervall, eine
+        Auswahlmîglichkeit des IP-Interfaces (z.B. LAN, PPP, etc.) und
+        vier Schalter fÅr das Erscheinungsbild der Statistiken.
+
+      Zur Information wurde Programm-Quellcode mitgeliefert. Eine
+      POP3-Mailbox-Info und ein REXX-Programm das zeigt wie mit einfachen
+      Mitteln Systeminformationen abgefragt werden kînnen. (z.B. Grî·e der
+      Auslagerungsdatei, Plattengrî·e, Suche nach Verzeichnissen, etc.)
+      Diese Beispiele kînnen nach eigenen WÅnschen angepa·t werden.
+
+      Alle diese Beispiele (und auch Ihre eigenen) mÅ·en manuell in
+      STARTUP.CMD oder im Systemstart-Ordner gestartet werden
+      (siehe repstart.cmd).
+
+      UND NICHT VERGESSEN DEN ENTSPRECHENDEN PIPE-MONITOR ANZULEGEN!!!
+
+* Der CD-Spieler
+      spielt Audio-CDs. Die Kommandos sind: Play, Stop, Pause, Eject,
+      NÑchstes Lied, Vorher. Lied. Es gibt vier Zeit-Modi - probieren
+      sie den 00-00 Knopf.
+      Der CD-Player benutzt nicht die OS/2 Multimedia-UnterstÅtzung.
+
+
+===============================================================================
+                             PLéNE FöR DIE ZUKUNFT
+-------------------------------------------------------------------------------
+* ALLGEMEIN
+        - "stick together" Feature (=> Terje Flaaronning)
+        - Farbeinstellungen per drag'n'drop (=> Terje Flaaronning)
+        - Aktivierungsecke/rand (=> Thorsten Haude)
+        - rollup feature (=> Ronny Ko)
+        ...alle diese Punkte werden in Sysbar III implementiert.
+
+* CD-Spieler
+        - CD-Erkennung - Anzeige von CD und Song-Namen
+        - CDDB-UnterstÅtzung (sowohl lokal als auch Åber Internet)
+        - Programmierbare Reihenfolge der Songs (=> Ingmar Hensler)
+
+* UHR
+        - Alarm (Mitteilung und Prg-Start) (=> Alexander Ernst)
+        - Kalender (=> Tibor Nagy).
+
+* PIPE MONITOR
+        - Verbesserte Informationsquellen.
+
+* TASK-Leiste
+        - Kontrolle der Fenster-Attribute
+        - Globale Kommandos zur Steuerung der Tasks
+
+* !!! NEUE KOMPONENTEN
+        - Start-Panel;
+        - Taschenrechner (=> George Brink).
+
+* !!! WICHTIG
+        - Ich suche Beta-Tester
+        - Falls sie denken die SysBar/2-Dokumentation sollte in eine andere
+          Sprache Åbersetzt werden - öbersetzen Sie die Dokumentation und
+          senden sie mir zu. Ich werde sie dann in die nÑchste Version
+          aufnehmen.
+        - Falls Sie eine eigene Version der Dokumentation schreiben
+          wollen - NUR ZU!
+          Ich brauche einen neuen Blickwinkel auf die ganze Software
+
+===============================================================================
+                              ANERKENNUNG
+-------------------------------------------------------------------------------
+Ich mîchte folgenden Leuten, die mir halfen (und immer noch helfen), danken:
+
+        Andrew Tereshechkin (aka Red Alligator)
+                fÅr seine Inspiration zum Start des Projekts, fÅr
+                seine Kritik an allen CD-Spielern dieser Welt (inklusive
+                meinem :), fÅr seine Ideen, VorschlÑge und eine Menge Testen.
+
+        meine Frau Helga
+                fÅr ihre Liebe und UnterstÅtzung
+
+        Igor E. Fedorenko
+                fÅr OS/2 API Tips und einiger Ideen
+                fÅr den POP3 mailbox peeker Code
+
+        Maxim Penzin
+                fÅr Testen and fÅr einige nÅtzliche Ideen (speziell der Idee
+                des Pipe-Monitors)
+
+        Sergey I. Yevtushenko
+                fÅr die CPU-Last Beispiele und PM API Beispiele
+
+        Peter Fitzsimmons
+                fÅr die ErklÑrung des Zugriffs auf die System-MenÅs
+
+        Gianluca Della Vedova
+                fÅr die Italienische Version der README-Datei
+
+        Thomas Voggenreiter
+                fÅr die Deutsche Version der README-Datei
+
+        Chris Wenham
+                fÅr die Artikel im OS/2 e-Zine Magazin
+
+        Ronny Ko
+                fÅr die Besprechung im OS/2 Computing! Magazin
+
+        Tester:
+        	Andrew Tereshechkin    Maxim Penzin
+		Gianluca Della Vedova  Thorsten Haude
+		Bjorn Tore Hoem        Antonio Manara
+                Denis Dubensky         Stepan Kazakov
+                Vit Timchishin         Eugen Kuleshov
+
+        und au·erdem...
+		George Brink           Stanislav Grushko
+		Serge Popov            Alexander Ernst
+		Emmanuele Vigni        Panacea Tech Support
+                Alexander Bezborodov   Thorsten Haude
+                Yasushi Ono            Alexander Krapivin
+                Andrey Buzanakow       Alexander Cherkaew
+                Andrey Serdiukov       Oleg Kostyuchenko
+                Serge Pashanin
+                ...for zusÑtzliches Testen und fÅr die Aufmerksamkeit auf das
+                   Produkt.
+
+===============================================================================
+                                UNTERSTöTZUNG
+-------------------------------------------------------------------------------
+WWW-Seite : http://www.lab321.ru/~dip/sysbar2/
+FTP-Server: ftp://sysbar:sysbar@lab321.ru
+
+Es gibt eine Mailing-Liste fÅr SysBar UnterstÅtzung und Diskussion:
+
+        sysbar-project@lab321.ru.
+
+Zur Aufnahme (Die Aufnahme ist kostenfrei) senden Sie eine Mitteilung
+an majordomo@lab321.ru mit dem Text "subscribe sysbar-project"
+im Hauptteil der Mitteilung.
+
+Falls Sie nicht in diese Liste wollen, kînnen Sie mir Ihre Fragen
+an sysbar@lab321.ru oder direkt an mich schicken.
+
+Alle Ihre Bemerkungen, VorschlÑge, Fehlerbericht, etc. sind willkommen
+via E-Mail oder in der Mailing-Liste. Bitte geben Sie Ihre SysBar/2-Version
+an (vor allem bei Fehlerberichten).
+
+===============================================================================
+                            KONTAKT ZUM AUTHOR
+-------------------------------------------------------------------------------
+Der Author der SysBar-Products Serie ist Dmitry I. Platonoff, ein 25 Jahre
+alter Software-Ing. aus Omsk, Russland (West Sibirien).
+
+E-mail: dip@lab321.ru
+        2:5004/8.4@fidonet
+
+WWW-Homepage: http://www.lab321.ru/~dip/
+
+Sie kînnen mich auch als "dip" im IRC finden.
+#OS2Russian, manchmal auch in den #os2prog, #os2coders Rooms auf EFnet.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

@@ -1,0 +1,279 @@
+
+
+                                  SysBar/2
+                                 ~~~~~~~~~~
+                    toolbar-style utility set for OS/2 PM
+                                version 0.11a
+                     (http://www.lab321.ru/~dip/sysbar2)
+
+                     (c) Dmitry I. Platonoff, 1995-1997
+                            (2:5004/31.10@fidonet
+                                dip@lab321.ru)
+
+
+                               *************
+                                README file
+                               *************
+
+
+===============================================================================
+                                  OVERVIEW
+-------------------------------------------------------------------------------
+SysBar/2 e' una nuova generazione di SysBar, un add-on per la WPS in stile 
+toolbar. La prima versione (Win16) e' stata scritta nel 1995 successivamente 
+alla apparizione della taskbar di Win95 (vista nelle prime beta). Assomiglia
+alla WarpCenter di OS/2 Warp 4.0 (oltre un'anno prima che uscisse!) con le
+stesse funzionalita' - taskbar, trays & info display. Ora la uso come shell 
+Win-OS/2 shell ed anche in Win NT 3.51 come program launcher.
+
+In questa nuova generazione ho decisp di dividere il prodotto in un insieme
+di piccoli programmi. Per il momento il prodotto consiste di 4 moduli:
+   - orologio (quello che mancava veramente nella versione per Windows) - 
+Coesiste felicemente sopra l'orologio della WarpCenter :) ;
+   - un utilissimo task switcher posizionabile;
+   - un monitor delle pipe - permette di leggere dati da qualunque numero di
+pipe a mostra tali dati in un formato utile quale una riga di celle;
+   - un lettore CD (non mi piace vedere finestre ingombranti tipo CD-in-a-Box
+o Albatros).
+
+
+===============================================================================
+                                DISTRIBUZIONE
+-------------------------------------------------------------------------------
+SysBar/2 e' *FREEWARE*. Questo programma viene sviluppato e distribuito nella
+speranza che sia utile, ma SENZA ALCUNA GARANZIA.
+
+
+===============================================================================
+                             SISTEMA RICHIESTO
+-------------------------------------------------------------------------------
+Viene richiesto un computer con processore 486 e OS/2 Warp 4.0. 
+Funziona anche sotto 3.0 (persino sotto 2.11 - non dispongo di un tale sistema
+per controllare, quindi sarebbe molto apprezzato se qualcuno potesse testare
+questo programma sotto 2.11 e mi facesse conoscere il risultato).
+
+Il lettore CD richiede un'interfaccia a comandi mci per MMOS2 (quindi e' 
+necessario avere installato le estensioni multimedia). E' in progetto la
+riscrittura del programma utilizzando comandi IOCTL,ma al momento manca il 
+tempo.
+
+
+===============================================================================
+                                INSTALLAZIONE
+-------------------------------------------------------------------------------
+Non viene fornito nessun complicato programma di installazione. Semplicemente
+bisogna scompattare il pacchetto in una directory e si e' pronti ;) Viene 
+fornito uno script per creare la cartella (chiamato SB2_FLDR.CMD).
+Una volta invocato crea la cartella SysBar/2 sul vostro desktop e tutte le
+icone dei programmi.
+
+i file che compongono il pacchetto sono:
+	FILE_ID .DIZ      380  - descrizione del pacchetto
+	SB2_CD  .Exe   24,145  - eseguibile del lettore CD
+	SB2_CLCK.Exe   20,708  - eseguibile dell'orologio
+	SB2_FLD1.ICO    4,026  - icone della cartella
+	SB2_FLD2.ICO    4,026  - icone della cartella aperta
+	SB2_FLDR.CMD    1,080  - script per la creazione della cartella
+	SB2_Pipe.Exe   32,021  - eseguibile del monitor delle pipe
+	SB2_TSWT.Exe   32,181  - eseguibile del task switcher
+	sysbar2 .dll   20,132  - una DLL con le routine comuni
+        \docs		       - documentazione
+        \info_src              - esempi di script con documentazione
+
+
+===============================================================================
+                                    USO
+-------------------------------------------------------------------------------
+Tutti i moduli hanno lo stesso aspetto, comportamento e controlli. E' possibile
+trascinarli ovunque con il tasto sinistro del mouse e invocare un menu pop-up
+con il tasto destro (con l'eccezione del task switcher dove funzione solo sul 
+lato vuoto di una finestra, altrimenti si ottiene un menu specifico del 
+processo selezionato).
+
+Tutti i moduli hanno un menu delle proprieta' dall'aspetto moderno. Tutte le
+modifiche apportate avranno effetto immediato. Ogni module registra la propria
+configurazione in un proprio file .cfg. Questi file sono facilmente modificabili
+(se necessario).
+E' anche possibile specificare un file di configurazione come primo parametro
+dalla linea di comando (utile soprattutto se si utilizzano diversi insiemi di
+pipe)
+
+Tutte le azioni sono semplici e facili da capire. Nel seguito descrivero' alcune funzionalita' piu' specifiche...
+
+* OROLOGIO
+        Una sola funzione - mostra ora e data, oltre a permettere di modificare
+	questi valori. E' tutto.
+
+* TASK SWITCHER
+	Mostra un insieme di icone che rappresentano tutti i processi che
+	sono in esecuzione, oltre a tutte le finestre aperte. E' possibile
+	applicare dei filtri (mostrare o nascondere) ed eseguire alcune azioni.
+	
+	Ci sono due filtri - nascondere o mostrare icone. E' possibile
+	modificare questi filtri sia via un menu pop-up che attraverso il menu
+	delle proprieta'. Ogni ingresso definisce una maschere che deve essere
+	confrontata con il titolo dell'applicazione. Se attivato il filtro 
+	permette di mostrare (o nascondere) tutte le applicazioni il cui nome
+	inizia con la stringa data. Ad esempio "Scrivania" nascondera' l'icona
+	della Scrivania, mentre "OS/2" nascondera' le finestre "OS/2 Prompt",
+	"OS/2 System Setup", ecc.
+	NON AGGIUNGERE MAI UNA STRINGA VUOTA AL FILTRO HIDE!!!!
+	
+	Controlli del mouse (sopra un'icona):
+	TASTO SINISTRO - passare al processo
+	TASTO DESTRO - menu pop-up (una copia del menu di sistema)
+	TASTO DESTRO CON IL SINISTRO - (premere il tasto destro quando il 
+	     sinistro e' gia' premuto) minimizzare la finestra
+	TASTO SINISTRO CON IL DESTRO - chiudere la finestra.
+	Ovviamente i tasti possono essere invertiti.
+
+* PIPE MONITOR
+	Apre un certo insieme di pipe (nel modo server) e legge dati da queste
+	sorgenti. Qualunque testo che arriva alla pipe viene mostrato in una
+	cella separata (una per ogni pipe), ed ogni cella puo' utilizzare un
+	colore diverso. E' particolarmente utile per mostrare informazioni sul
+	sistem, per il debug, ecc.
+	
+	Setup
+	per ogni pipe e' possibile fornire:
+	NAME - un nome di pipe (quindi dove iniziare con "\pipe\", es 
+	"\pipe\mia_pipe", e' un nome
+	DESC - una descrizione che verra' mostrata nella bubble
+	COLOR - il colore da utilizzare nella cella
+	EXEC - il nome dell'eseguibile da lanciare quando si clicca due volte
+	la cella
+	TIMEOUT - un numero di secondi, passati i quali la cella sparisce
+
+	Alcuni esempi sono forniti. Un piccolo programma per controllare se 
+	e' presente nuova posta in una mailbox POP3 e uno script in REXX che
+	mostra alcuni semplici modi per ottenere informazioni del sistema, 
+	quali lo spazio su disco e la dimensione del file di swap. Sono tutti
+	modificabili facilmente secondo le necessita'.
+	Tutti le fonti di informazioni per le pipe devono essere lanciate (il
+	modo piu' semplice e' creare una copia collegata di repstart.cmd nella
+	cartella di Avvio (repstart.cmd e' facilmente modificabile).
+	RACCOMANDAZIONE: CONFIGURARE CORRETTAMENTE LE PIPE NEL MONITOR
+	Per il momento deve essere fatto manualmente, e' in progetto una 
+	integrazione delle sorgenti di informazioni con il Pipe Monitor.
+
+* LETTORE CD	
+	Puo' leggere CD audio. I comandi sono: play, stop, pause, eject,
+         next track & previous track (non mi sembra necessario tradurli, basta 
+	provarli). Ci sono quattro modi per mostrare il tempo (provate il 
+	pulsante 00-00).
+	Un'opzione importante e' "Auto-disable". Se attivata il lettore CD si
+	fermera' se e' stato inserito un CD non audio (cio' per evitare 
+	problemi con alcune applicazioni che utilizzano MMOS/2)
+	Si puo' sempre riattivare il lettore successivamente.
+
+
+===============================================================================
+                            PROGETTI PER IL FUTURO    
+-------------------------------------------------------------------------------
+* COMUNI
+	- collegare tutti i moduli 		 (=> Terje Flaaronning);
+	- drag'n'drop dei colori		 (=> Terje Flaaronning);
+        - attivazione controllata da angoli o lati dello schermo
+						 (=> Thorsten Haude);
+	- rollup				 (=> Ronny Ko).
+
+* LETTORE CD		
+	- interfaccia IOCTL (niente multimedia!!!)
+						 (=> Andrew Terñshechkin);
+        - riconoscimento del disco e evidenzazione dei nomi del disco/brano;
+        - gestione dei file dei testi (*.LYR);
+        - elenco brani				 (=> Alexander Bezborodov);
+        - ordine dei brani programmabile	 (=> Ingmar Hensler);
+	- pausa veloce				 (=> Terje Flaaronning).
+
+* OROLOGIO
+	- allarme (messaggi & scheduler)	 (=> Alexander Ernst);
+        - interfaccia grafica flessibile	 (=> Igor Fedorenko);
+        - calendario				 (=> Tibor Nagy).
+
+* PIPE MONITOR
+	- migliori sorgenti di informazioni.
+
+* TASK SWITCHER
+	- controlli degli attributi delle fineste;
+        - comandi globali per la gestione dei processi.
+
+* !!! NUOVE COMPONENTI
+        - pannello per il lancio di applicazioni;
+	- calculatrice				 (=> George Brink).
+
+* !!! IMPORTANTE
+	- Sono alla ricerca di beta tester.
+
+
+===============================================================================
+                              RINGRAZIAMENTI
+-------------------------------------------------------------------------------
+Desidero ringraziare le seguenti persone che mi hanno aiutato (e ancora mi
+aiutano) nel mio lavoro:
+
+
+	Andrew Tereshechkin (aka Red Alligator)
+		per avermi dato l'idea di iniziare questo prodotto
+		per avere criticato tutti i lettori di CD del mondo (incluso
+		il mio);
+		per le idee, i suggerimenti e tanto lavoro di test
+
+
+	mia moglie Helga
+     		per l'amore e il supporto
+
+	Igor E. Fedorenko
+     		per i trucchi sulle OS/2 API ed alcune idee
+
+	Maxim Penzin
+		Per le prove ed alcune idee utili (specialmente per l'idea
+		del Pipe Monitor)
+
+	Alexander Ernst
+		per alcuni utilissimi miglioramenti del task switcher
+
+	Peter Fitzsimmons
+		per avermi mostrato il modo di accedere ai menu di sistema
+
+	Ronny Ko
+     		per la recensione in  OS/2 Computing! 
+
+	Alexander Bezborodov
+        Thorsten Haude
+     		per aver trovato alcuni bug che mi erano sfuggiti
+
+	George Brink
+	Stanislav Grushko
+	Serge Popov
+	Emmanuele Vigni
+        Gianluca Della Vedova
+	Panacea Tech Support
+	     	Per il lavoro di testing e l'attenzione data al lavoro.
+
+
+===============================================================================
+                            CONTATTARE L'AUTORE
+-------------------------------------------------------------------------------
+L'autore della serie di prodotti SysBar e' Dmitry I. Platonoff, un ingeniere
+del software di 24 anni. Vive a Omsk, in Russia (Siberia occidentale)
+
+Tutti i suggerimenti, e la comunicazione di bug sono graditi vie e-mail 
+(ndT.  anche gli apprezzamenti sono graditi)
+
+Per favore segnalate la versione di SysBar/2 e il sito da cui avete effettuato
+il download quando mi mandate un messaggio (specialmente in caso di bug)
+
+WWW Home Page: http://www.lab321.ru/~dip/sysbar2/
+
+
+E-mail: dip@lab321.ru
+	2:5004/31.10@fidonet
+	http://www.lab321.ru/~dip
+
+Posso essere trovato su IRC come "dip" in #Russia, #os2prog, #OS/2 nei
+seguenti servers: MSN :), efnet, dalnet, etc.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+

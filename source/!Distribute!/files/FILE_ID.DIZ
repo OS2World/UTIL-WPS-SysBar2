@@ -1,0 +1,12 @@
+ -=< SysBar/2 utility set 0.23 >=-
+
+  (c) 1995-99 by Dmitry I. Platonoff
+  (c) 2002,04 by Max Alekseyev
+
+This release of SysBar/2, toolbar-style
+utility set for OS/2 PM, includes:
+ * Task Switcher - floating taskbar;
+ * Pipe Monitor - named pipe listener
+    and system monitor;
+ * Clock - digital clock with calendar;
+ * CD player - pretty small CD player.

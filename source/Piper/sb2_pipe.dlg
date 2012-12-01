@@ -1,0 +1,301 @@
+/*
+
+  SysBar/2 Utility Set  version 0.23
+
+  Pipe Monitor dialogs
+
+  ..................................................................
+
+  Copyright (c) 1995-1999  Dmitry I. Platonoff <dip@platonoff.com>
+  Copyright (c) 2002,03    Max Alekseyev       <relf@os2.ru>
+
+                           All rights reserved
+
+  ..................................................................
+
+  LICENSE
+  ~~~~~~~
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the following
+     disclaimer in the documentation and/or other materials provided
+     with the distribution.
+
+  3. Redistributions of any form whatsoever, as well as all
+     advertising materials mentioning features or use of this
+     software (if any), must include the following acknowledgment:
+     "This product includes software developed by Dmitry I. Platonoff".
+
+  4. The names "SysBar/2" and "Dmitry I. Platonoff" must not be
+     used to endorse or promote products derived from this software
+     without prior written permission. For such permission, please
+     contact dplatonoff@canada.com.
+
+  5. Products derived from this software may not be called
+     "SysBar/2" nor may "Dmitry I. Platonoff" appear in their
+     contributor lists without prior written permission.
+
+  ..................................................................
+
+  DISCLAIMER
+  ~~~~~~~~~~
+  THIS SOFTWARE IS PROVIDED BY THE AUTHOR OR CONTRIBUTORS "AS IS"
+  AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  AUTHOR OR THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*/
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "sb2_pipe_res.h"
+
+DLGTEMPLATE D_Cell_Dialog LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", D_Cell_Dialog, 0, 0, 190, 104, NOT FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        LISTBOX         D_Cell_List, 4, 3, 129, 93, WS_GROUP
+        PUSHBUTTON      "~New", D_Cell_New, 139, 85, 44, 11, WS_GROUP
+        PUSHBUTTON      "~Edit", D_Cell_Edit, 139, 73, 44, 11
+        PUSHBUTTON      "~Clone", D_Cell_Clone, 139, 61, 44, 11
+        PUSHBUTTON      "U~p", D_Cell_Up, 139, 15, 44, 11
+        PUSHBUTTON      "~Down", D_Cell_Down, 139, 3, 44, 11
+        PUSHBUTTON      "~Remove", D_Cell_Remove, 139, 49, 44, 11
+    END
+END
+
+DLGTEMPLATE DLG_ABOUT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "About SysBar/2 Pipe Monitor", DLG_ABOUT, 0, 0, 180, 85, NOT 
+            FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "", D_Version, 4, 29, 152, 50
+        LTEXT           "SysBar/2 Pipe Monitor", 401, 10, 58, 140, 10, DT_VCENTER | DT_WORDBREAK
+        LTEXT           "", D_Copyright1, 10, 47, 140, 10, 	DT_VCENTER | DT_WORDBREAK
+        LTEXT           "", D_Copyright2, 10, 36, 140, 10, 	DT_VCENTER | DT_WORDBREAK
+        ICON            ICO_MAIN, ICO_MAIN, 166, 60, 21, 16, WS_GROUP
+    END
+END
+
+DLGTEMPLATE D_Cell_PageLog LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", D_Cell_PageLog, 0, 0, 190, 100, NOT FS_DLGBORDER | 
+            WS_VISIBLE
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        AUTOCHECKBOX    "~Enable", D_Log_Enable, 2, 88, 40, 10, WS_GROUP
+        AUTOCHECKBOX    "~Timestamping", D_Log_Timestamping, 44, 88, 60, 10
+        LTEXT           "Buffer size", D_Log_Buffer1, 108, 88, 36, 8
+        SPINBUTTON      D_Log_Buffer, 144, 88, 30, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | WS_GROUP
+        LTEXT           "Kb", D_Log_Buffer2, 176, 88, 12, 8
+        MLE             "", D_Log_MLE, 2, 13, 186, 74, MLS_HSCROLL | 
+                        MLS_VSCROLL | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "2.System VIO"
+        AUTOCHECKBOX    "~Append to", D_Log_AppendX, 2, 1, 48, 10, WS_GROUP
+        ENTRYFIELD      "", D_Log_AppendFile, 52, 3, 97, 7, ES_MARGIN | 
+                        WS_GROUP
+        PUSHBUTTON      "~Browse", D_Log_AppendBrw, 152, 1, 36, 11, WS_GROUP
+    END
+END
+
+DLGTEMPLATE D_Number_Dialog LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", D_Number_Dialog, 0, 0, 190, 60, NOT FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        AUTOCHECKBOX    "~Use default", D_Number_Default, 3, 52, 55, 10, NOT 
+                        WS_VISIBLE
+        AUTOCHECKBOX    "~Gigabytes", D_Number_Gb, 3, 36, 50, 10
+        AUTOCHECKBOX    "~Megabytes", D_Number_Mb, 3, 25, 50, 10
+        AUTOCHECKBOX    "~Kilobytes", D_Number_Kb, 3, 14, 50, 10
+        AUTOCHECKBOX    "~Bytes", D_Number_b, 3, 3, 50, 10
+        ENTRYFIELD      "", D_Number_GbName, 56, 38, 26, 7, ES_MARGIN
+        ENTRYFIELD      "", D_Number_MbName, 56, 27, 26, 7, ES_MARGIN
+        ENTRYFIELD      "", D_Number_KbName, 56, 16, 26, 7, ES_MARGIN
+        ENTRYFIELD      "", D_Number_bName, 56, 5, 26, 7, ES_MARGIN
+        CTEXT           "if greater than", D_Number_GbT1, 85, 38, 50, 8, 
+                        DT_VCENTER
+        CTEXT           "if greater than", D_Number_MbT1, 85, 27, 50, 8, 
+                        DT_VCENTER
+        CTEXT           "if greater than", D_Number_KbT1, 85, 16, 50, 8, 
+                        DT_VCENTER
+        ENTRYFIELD      "", D_Number_GbLimit, 138, 38, 26, 7, ES_MARGIN
+        ENTRYFIELD      "", D_Number_MbLimit, 138, 27, 26, 7, ES_MARGIN
+        ENTRYFIELD      "", D_Number_KbLimit, 138, 16, 26, 7, ES_MARGIN
+        LTEXT           "Gb", D_Number_GbT2, 168, 38, 12, 8
+        LTEXT           "Mb", D_Number_MbT2, 168, 27, 12, 8
+        LTEXT           "Kb", D_Number_KbT2, 168, 16, 12, 8
+    END
+END
+
+DLGTEMPLATE DLG_SETTINGS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "SysBar/2 Pipe Monitor settings", DLG_SETTINGS, 0, 0, 168, 100, 
+            NOT FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "Display on top", D_Display, 3, 46, 57, 48
+        AUTORADIOBUTTON "~No", D_Display_None, 10, 76, 45, 10, WS_GROUP
+        AUTORADIOBUTTON "~Always", D_Display_OnTop, 10, 67, 45, 10
+        AUTORADIOBUTTON "Pop-~up", D_Display_Popup, 10, 58, 45, 10
+        AUTORADIOBUTTON "Pop/~hide", D_Display_Popup2, 10, 49, 45, 10
+        GROUPBOX        "Cell size", D_Size, 63, 46, 100, 48
+        AUTORADIOBUTTON "~Small", D_Size_Small, 69, 76, 64, 10, WS_GROUP
+        AUTORADIOBUTTON "~Large", D_Size_Large, 70, 67, 64, 10
+        AUTORADIOBUTTON "Aut~o (font-dependent)", D_Size_Auto, 70, 58, 88, 
+                        10
+        AUTORADIOBUTTON "~Custom size", D_Size_Custom, 70, 49, 56, 10
+        SPINBUTTON      D_Size_Size, 127, 49, 31, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTLEFT | WS_GROUP
+        GROUPBOX        "Bind to corner", D_Bind_Corner, 3, 14, 57, 30
+        AUTORADIOBUTTON "Of~f", D_Bind_Off, 23, 22, 22, 10, WS_GROUP
+        AUTORADIOBUTTON "", D_Bind_NW, 8, 27, 10, 10
+        AUTORADIOBUTTON "", D_Bind_NE, 46, 27, 10, 10
+        AUTORADIOBUTTON "", D_Bind_SW, 8, 15, 10, 10
+        AUTORADIOBUTTON "", D_Bind_SE, 46, 15, 10, 10
+        GROUPBOX        "Grow direction", D_Grow, 63, 14, 56, 30
+        AUTORADIOBUTTON "Lef~t", D_Grow_Left, 70, 27, 32, 10, WS_GROUP
+        AUTORADIOBUTTON "~Right", D_Grow_Right, 70, 17, 32, 10
+//        LTEXT           "Cell color:", D_Color_T, 123, 36, 39, 8
+//        CONTROL         "", D_Color_List, 123, 0, 41, 36, WC_COMBOBOX, 
+//                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+//                        WS_VISIBLE
+        PUSHBUTTON      "~Desc font", D_Desc_Font_Settings, 123, 29, 41, 11, 
+                        WS_GROUP
+        PUSHBUTTON      "C~ell font", D_Pipe_Font_Settings, 123, 15, 41, 11
+        AUTOCHECKBOX    "Loc~k position", D_Lock_Position, 4, 2, 81, 10, 
+                        WS_GROUP
+    END
+END
+
+DLGTEMPLATE D_Cell_PageApp LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", D_Cell_PageApp, 0, 0, 190, 100, NOT FS_DLGBORDER | 
+            WS_VISIBLE
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "On cell text change", D_App_Income, 5, 60, 180, 38
+        ENTRYFIELD      "", D_App_IncomeTxt, 13, 78, 165, 7, ES_MARGIN | 
+                        WS_GROUP
+        AUTOCHECKBOX    "~Enable", D_App_IncomeX, 12, 63, 40, 10, WS_GROUP
+        PUSHBUTTON      "~Browse", D_App_IncomeBrw, 143, 63, 36, 12
+        GROUPBOX        "On mouse double-click", D_App_Dblclick, 5, 20, 180, 
+                        38
+        ENTRYFIELD      "", D_App_DblclickTxt, 13, 38, 165, 7, ES_MARGIN | 
+                        WS_GROUP
+        AUTOCHECKBOX    "E~nable", D_App_DblclickX, 12, 23, 40, 10, WS_GROUP
+        PUSHBUTTON      "B~rowse", D_App_DblclickBrw, 143, 23, 36, 12
+        RTEXT           "To pass cell text as an argument place %s somewhere"
+                        " in the command line", D_App_Note, 16, 4, 164, 14, 
+                        DT_WORDBREAK
+    END
+END
+
+DLGTEMPLATE D_Cell_Page1 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", D_Cell_Page1, 0, 0, 190, 100, NOT FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        RTEXT           "Type", D_Cell_TypeT, 3, 87, 20, 8
+        CONTROL         "", D_Cell_Type, 25, 19, 161, 78, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        RTEXT           "Name", D_Cell_DescT, 3, 76, 20, 8
+        ENTRYFIELD      "", D_Cell_Desc, 27, 78, 78, 7, ES_MARGIN | WS_GROUP
+        AUTOCHECKBOX    "~Enable cell", D_Cell_Enable, 131, 76, 55, 10, 
+                        WS_GROUP
+        RTEXT           "Prefix", D_Cell_PrefixT, 3, 65, 20, 8
+        ENTRYFIELD      "", D_Cell_Prefix, 27, 67, 78, 7, ES_MARGIN | 
+                        WS_GROUP
+        RTEXT           "Empty", D_Cell_EmptyT, 109, 65, 20, 8
+        ENTRYFIELD      "", D_Cell_Empty, 133, 67, 51, 7, ES_MARGIN
+        AUTOCHECKBOX    "~Lazy shrink", D_Cell_LazyShrink, 6, 54, 48, 10, 
+                        WS_GROUP
+        AUTOCHECKBOX    "Expire ~timeout", D_Cell_Expire, 58, 54, 64, 10, 
+                        NOT WS_VISIBLE
+        RTEXT           "Refresh timeout", D_Cell_TimeoutT, 61, 54, 60, 8, 
+                        NOT WS_VISIBLE
+        SPINBUTTON      D_Cell_Seconds, 123, 54, 32, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTLEFT | WS_GROUP
+        LTEXT           "seconds", D_Cell_SecondsT, 156, 54, 30, 8
+        RTEXT           ":", D_Cell_NameT, 3, 43, 20, 8
+        CONTROL         "", D_Cell_Choice, 25, 3, 100, 50, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP
+        ENTRYFIELD      "", D_Cell_Name, 27, 45, 121, 7, ES_MARGIN | 
+                        WS_GROUP | NOT WS_VISIBLE
+        PUSHBUTTON      "~Browse", D_Cell_BrowseFile, 150, 43, 36, 11, 
+                        WS_GROUP | NOT WS_VISIBLE
+        AUTOCHECKBOX    "", D_Cell_Check0, 25, 33, 161, 10, WS_GROUP | NOT 
+                        WS_VISIBLE
+        AUTOCHECKBOX    "", D_Cell_Check1, 25, 24, 161, 10, NOT WS_VISIBLE
+        AUTOCHECKBOX    "", D_Cell_Check2, 25, 15, 161, 10, NOT WS_VISIBLE
+        AUTOCHECKBOX    "", D_Cell_Check3, 25, 6, 161, 10, NOT WS_VISIBLE
+        CTEXT           "CPU load meter code  (c) 1997,98 Sergey I. Yevtushe"
+                        "nko", D_Cell_CopyrightT, 0, 0, 190, 8, NOT 
+                        WS_VISIBLE
+    END
+END
+
+DLGTEMPLATE D_Cell_PageColors LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", D_Cell_PageColors, 0, 0, 190, 100, NOT FS_DLGBORDER | 
+            WS_VISIBLE
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "Default colors", D_Default_ColorG, 4, 70, 182, 25
+        CTEXT           "text", D_Text_ColorT, 84, 82, 48, 8
+        CTEXT           "background", D_Back_ColorT, 134, 82, 48, 8
+        CONTROL         "", D_Text_Default, 84, 34, 48, 48, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        CONTROL         "", D_Back_Default, 134, 34, 48, 48, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        GROUPBOX        "Customized colors", D_Custom_ColorG, 4, 26, 182, 44
+        SPINBUTTON      D_Color_Condition1, 8, 53, 22, 12, SPBS_READONLY | 
+                        SPBS_MASTER | SPBS_FASTSPIN | WS_GROUP
+        ENTRYFIELD      "", D_Color_Text1, 33, 54, 47, 7, ES_MARGIN
+        CONTROL         "", D_Text_Color1, 84, 14, 48, 48, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        CONTROL         "", D_Back_Color1, 134, 14, 48, 48, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        SPINBUTTON      D_Color_Condition2, 8, 41, 22, 12, SPBS_READONLY | 
+                        SPBS_MASTER | SPBS_FASTSPIN | WS_GROUP
+        ENTRYFIELD      "", D_Color_Text2, 33, 42, 47, 7, ES_MARGIN
+        CONTROL         "", D_Text_Color2, 84, 4, 48, 46, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        CONTROL         "", D_Back_Color2, 134, 4, 48, 46, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        SPINBUTTON      D_Color_Condition3, 8, 29, 22, 12, SPBS_READONLY | 
+                        SPBS_MASTER | SPBS_FASTSPIN | WS_GROUP
+        ENTRYFIELD      "", D_Color_Text3, 33, 30, 47, 7, ES_MARGIN
+        CONTROL         "", D_Text_Color3, 84, 3, 48, 35, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        CONTROL         "", D_Back_Color3, 134, 3, 48, 35, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+    END
+END

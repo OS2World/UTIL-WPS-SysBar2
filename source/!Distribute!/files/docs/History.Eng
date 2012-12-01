@@ -1,0 +1,921 @@
+
+
+                                  SysBar/2
+                                 ~~~~~~~~~~
+                    toolbar-style utility set for OS/2 PM
+                                version 0.23
+
+            (c) 1995-99 by Dmitry I. Platonoff <dip@platonoff.com>
+                 (c) 2002,04  by Max Alekseyev <relf@os2.ru>
+
+
+                        ****************************
+                         Development/bugfix history
+                        ****************************
+
+
+===============================================================================
+                                NEWS SUMMARY
+-------------------------------------------------------------------------------
+           [+] - new element, [*] - new feature, [!] - fixed bug
+
+v 0.23 (20040922) by Max Alekseyev <relf@os2.ru>
+        ! PIPE MONITOR: more than 49.7 days uptime is reported fine 
+                        (thanks to zuko)
+        ! SYSBAR: PM icons fixed (RC bug + lost EA)
+
+v 0.22 (06.01.2003) by Max Alekseyev <relf@os2.ru>
+        ! PIPE MONITOR: POP3 Mailbox monitor fixed
+        + PIPE MONITOR: Config 'delimiter' parameter introduced. No GUI setting 
+                        for that yet. Change it manually (and carefully!)
+                        Default value: delimiter=,
+
+v 0.21 (03.01.2003) by Max Alekseyev <relf@os2.ru>
+        ! PIPE MONITOR: 64-bit traffic counter routine fixed
+        ! CD PLAYER: Hang on data CD fixed
+
+v 0.20 (02.01.2003) by Max Alekseyev <relf@os2.ru>
+        ! PIPE MONITOR: Traffic Monitor supports interfaces with identical 
+                        descriptions
+        ! CD PLAYER: Continous playing was broken
+
+v 0.19 (28.12.2002) by Max Alekseyev <relf@os2.ru>
+        ! TASK SWITCHER: incorporated changes from Eugen Kuleshov
+        ! CD PLAYER: Random Order rewritten, navigation is fixed
+	! CD PLAYER: Loop Disc became a checkbox
+        + PIPE MONITOR: CPU Load Meter support for second CPU
+	+ PIPE MONITOR: added 'Gb' units support. If you're going to use old 
+                        configs, manually UPDATE Properties->Page 3 setting
+        ! PIPE MONITOR: traffic counter is 64-bit (no 2Gb overflow)
+        ! PIPE MONITOR: CPU Load Meter fixed (thanks to Sergey Yevtushenko)
+
+v 0.18 (13.10.1999)
+	* PIPE MONITOR: configurable error messages (=> Sergey Gryaznov)
+        ! PIPE MONITOR: misspelled ThermoProtect pipes (=> David Wei)
+
+v 0.17 (12.10.1999)
+	+ PIPE MONITOR: pre-defined pipe for SETI@HOME (=> Dave Serls)
+
+v 0.16b (08.10.1999)
+        ! TASK SWITCHER: windows with "hide" button now get hidden
+        ! PIPE MONITOR: configuration now saved after closing cell setup
+        ! PIPE MONITOR: broken free space and traffic cells setup fixed
+
+v 0.16a (08.10.1999)
+        + PIPE MONITOR: 19 pre-defined pipes for ThermoProtect (=> David Wei)
+        + PIPE MONITOR: pre-defined pipe for ACIQ (=> Pavel Nikiforov)
+        * CD PLAYER: tracklist menu
+        * PIPE MONITOR: variable (content-dependent) cell color
+        * PIPE MONITOR: enhanced color setup
+        * PIPE MONITOR: changes in cell setup dialog now apply immediately
+        * PIPE MONITOR: "Lazy shrink" feature
+        ! PIPE MONITOR: log buffer memory allocation fixed
+        ! PIPE MONITOR: "process count" display removed
+        ! PIPE MONITOR: more accurate RFC compliance (=> Vitali E. Pelenyov)
+
+v 0.15 (13.10.1998)
+        + PIPE MONITOR: pre-defined pipe for Layer/2 (=> Dmitry Steklenev)
+        * PIPE MONITOR: support of commandline parameters for apps to launch
+        * PIPE MONITOR: POP3 conversation log
+        ! PIPE MONITOR: POP3 passwords with '@' inside
+        ! PIPE MONITOR: complex POP3 messages (=> Serge Pashanin)
+        ! PIPE MONITOR: broken pipes (=> Vit Timchishin)
+        ! PIPE MONITOR: "on-change" launcher bug (=> Nenad Milenkovic)
+
+v 0.14 (14.09.1998)
+        * PIPE MONITOR: automatic properties dialog when no cells at startup
+        ! PIPE MONITOR: logs, mixed in one pool (=> Vit Timchishin)
+
+v 0.13f (07.09.1998)
+	+ DOCS: German version of README (=> Thomas Voggenreiter)
+        + PIPE MONITOR: new items -- in/out traffic (=> Vit Timchishin)
+        + PIPE MONITOR: new item -- POP3 mailbox peeker
+        + PIPE MONITOR: new item -- system process info (=> Denis Dubensky)
+        + PIPE MONITOR: new item -- system uptime (=> Andrey Serdiukov)
+        + PIPE MONITOR: new item -- calendar (=> Rafael Manasyan)
+        * PIPE MONITOR: log start/close records (=> Denis Dubensky)
+        * CLOCK: optional seconds (=> Steven White)
+        ! PIPE MONITOR: fixed max CPU meter value
+        ! TASK SWITCHER: task title popup through other windows
+        ! TASK SWITCHER: exception configuration now saved properly
+
+v 0.13e (24.07.1998)
+        ! PIPE MONITOR: driveletter bug (=> Denis Dubensky)
+
+v 0.13d (22.07.1998)
+        * PIPE MONITOR: alternate CPU meter (=> Andrey Serdiukov)
+        * TASK SWITCHER: tasklist in pop-up menu (=> Eugen Kuleshov)
+        * TASK SWITCHER: fixed size (=> Eugen Kuleshov)
+        ! PIPE MONITOR: very large drive support (=> Alexander Cherkaew)
+        ! PIPE MONITOR: broken drive selection dialog (=> Alexander Cherkaew)
+        ! PIPE MONITOR: inoperate "empty" cell value
+        ! PIPE MONITOR: log buffer memory allocation
+        ! an attempt to fix an odd "pop/hide" window behaviour :)
+
+v 0.13c (26.06.1998)
+        * PIPE MONITOR: cell logging (=> Vit Timchishin)
+        + PIPE MONITOR: new item -- clock (=> Vit Timchishin)
+        * PIPE MONITOR: event-driven program launch
+        * PIPE MONITOR: new cell setup pages
+        * CD PLAYER: random track order (=> Alexander Anisimoff)
+        * CD PLAYER: drive letter autodetect (=> Andrea Penna)
+        ! TASK SWITCHER: minimum size set to 8 (=> Eugen Kuleshov)
+        ! TASK SWITCHER: inoperate "new filter" button (=> Denis Dubensky)
+
+v 0.13b (15.05.1998)
+        * TASK SWITCHER: exceptions
+	! PIPE MONITOR: pipe buffer increased (=> Vit Timchishin)
+	! PIPE MONITOR: pipe messages without terminator (=> Andrey Buzanakow)
+
+v 0.13a (27.04.1998)
+        * "lock position" feature
+        * PIPE MONITOR: available physical memory
+        * CD PLAYER: loop disc feature
+        * TASK SWITCHER: task title source selection
+        * TASK SWITCHER: switchto/minimize feature (=> Giuliano Lotta)
+        ! PIPE MONITOR: trap at heavy data transfer (=> Vit Timchishin)
+
+v 0.12 (20.03.1998)
+	! CD PLAYER: internal multithreading fixes (=> Stepan Kazakov)
+
+v 0.11f (01.03.1998)
+	+ CD PLAYER: IOCtl engine (YESSS!!!)
+        ! PIPE MONITOR: bad freespace of locked drives (=> Denis Dubensky)
+        ! PIPE MONITOR: extra config entries for "free space" cells
+        ! TASK SWITCHER: empty task titles
+
+v 0.11e (18.12.1997)
+	* PIPE MONITOR: cell control page modified
+	* PIPE MONITOR: "setup" item added to the cell context menu
+        ! TASK SWITCHER: task title limited to 64 characters
+        ! PIPE MONITOR: save config when removing cells using menu
+
+v 0.11d (24.10.1997)
+	* PIPE MONITOR: copying cells to clipboard
+ 	! PIPE MONITOR: battery status format changed (=> Yasushi Ono)
+	! position adjustment when changing size with cornerbind on
+
+v 0.11c (22.09.1997)
+	+ PIPE MONITOR: new multi-type cell setup engine
+ 	+ PIPE MONITOR: CPU load meter (by Sergey I. Yevtushenko)
+ 	+ PIPE MONITOR: drive free space monitor
+ 	+ PIPE MONITOR: file monitor
+ 	+ PIPE MONITOR: battery status monitor (=> Yasushi Ono)
+ 	* PIPE MONITOR: background color selection
+ 	* PIPE MONITOR: pipe data input speedup (=> Sergey I. Yevtushenko)
+	! all the modules have been returned to tasklist :)
+
+v 0.11b (11.09.1997)
+	+ DOCS: Italian version of README (by Gianluca Della Vedova)
+        ! TASK SWITCHER: task order reversed (=> Andrew Terñshechkin)
+
+v 0.11a (22.08.1997)
+	+ DOCS: Russian version of README
+	* DOCS: component usage details
+        * TASK SWITCHER: background color selection (=> Thorsten Haude)
+        * TASK SWITCHER: new mouse-click commands
+	* PIPE MONITOR: cell executable assignment
+	* PIPE MONITOR: expire time feature (=> Andrew Terñshechkin)
+	! PIPE MONITOR: pipe name input check and completion
+        ! TASK SWITCHER: task switching speedup (=> Thorsten Haude)
+        ! TASK SWITCHER: filter input string check
+	! dialog fields enlarged
+	! all the modules have been removed from tasklist
+
+v 0.10 (10.07.1997)
+	+ PIPE MONITOR module
+	* CLOCK: 12-hour mode (=> Casey Bralla)
+        * TASK SWITCHER: task system menu capture
+
+v 0.09 (17.06.1997)
+	+ DOCS: news summary
+        * corner bind feature (=> Maxim Penzin)
+        * pop-up on mouse movement mode
+        * TASK SWITCHER: font selection dialog (for pop-up task names)
+        * TASK SWITCHER: task menus (no more action dialogs)
+        * TASK SWITCHER: filter options in task menu
+        * TASK SWITCHER: process filtering by attributes
+        * TASK SWITCHER: task information window
+        ! TASK SWITCHER: lost icons problem (a PM bug!!! See description)
+        ! TASK SWITCHER: codepage support (=> Alexander Bezborodov)
+        ! INSTALLATION SCRIPT: lost animation icon
+        ! window NOBYTEALIGN attribute applied - drag freely :)
+
+v 0.08 (02.06.1997) - hot bugfix release
+	! notebook creation code fix for Warp 3.0 (=> Andrew Terñshechkin)
+
+v 0.07 (28.05.1997)
+	+ installation stuff (folder creation script & icons)
+        + DOCS: English version
+	* cool-looking notebooks for Warp 4.0 (Merlin)
+        ! short filenames (8.3) (=> Alexander Ernst)
+        ! sysbar2.dll traps (when starting a second instance)
+
+v 0.06 (27.11.1996)
+	+ module compression using lxLite
+        * TASK SWITCHER: pop-up application titles
+        * TASK SWITCHER: filters (=> Alexander Ernst)
+        
+v 0.05 (15.08.1996)
+        + "settings" dialogs
+	* TASK SWITCHER: custom cell size mode
+        * CD PLAYER: moved to mci command interface (=> Stanislav Grushko);
+        ! Warp 4.0 (WM_ERASEBACKGROUND) fix
+        
+v 0.04b (26.05.1996)
+	* "large size" mode (=> Serge Popov)
+        * TASK SWITCHER: optimal icon image selection
+        * TASK SWITCHER: "fit icons" mode (=> Alexander Ernst)
+        * TASK SWITCHER: "swap mouse buttons" feature (=> Stanislav Grushko)
+          
+v 0.03b (25.05.1996) - hot bugfix release
+	* monochrome display mode (=> George Brink)
+        * "save options" command (=> Alexander Ernst)
+	* TASK SWITCHER: "?" mark for windows without icons
+	! TASK SWITCHER: wrong window position saving possible
+        ! CD PLAYER: engine fixes and improvements
+
+v 0.02b (24.05.1996)
+	+ TASK SWITCHER module
+	+ "about" dialogs
+        * CD PLAYER: non-audio CD determination
+        * CD PLAYER: "auto-disable" feature
+
+v 0.01b (20.05.1996) - first public release
+        + CD PLAYER module
+	* CLOCK improvements
+
+v 0.00  (autumn'1995)
+	+ CLOCK module
+
+
+
+===============================================================================
+                          COMPLETE REVISION HISTORY
+-------------------------------------------------------------------------------
+
+
+===============================================================================
+v 0.18 (13.10.1999)
+-------------------------------------------------------------------------------
+ Added:	Pipe Monitor (13.10.1999)
+	All the error messages moved to the configuration file to be easily
+         changed (=> Sergey Gryaznov).
+
+ Fixed:	Pipe Monitor (13.10.1999)
+ 	There were several misspelled pipe names in the ThermoProtect pipe
+         set (because of outdated docs I used :) (=> David Wei).
+
+
+===============================================================================
+v 0.17 (12.10.1999)
+-------------------------------------------------------------------------------
+ New:	Pipe Monitor (12.10.1999)
+	A new pipe fpr SB2SETI, an utility which displays the completion
+         percentage for SETI@HOME (=> Dave Serls).
+
+ Fixed:	Task Switcher (08.10.1999)
+	"Hide window" action (second click on the icon or LMB+RMB) worked
+         only for windows with "minimize" button in the titlebar. Now it
+         works for windows with "hide" button as well (that is needed, for
+         example, when "hide windows" turned on in the system setup instead
+         of "minimize to viewer"). Actually, it works now with all windows :)
+
+ Fixed:	Pipe Monitor (08.10.1999)
+	Configuration is now saved automatically when cell setup dialog
+         is being closed (the bug existed when the setup has been called
+         from the cell context menu, not from the main properties dialog).
+
+ Fixed:	Pipe Monitor (08.10.1999)
+	A cell setup dialog was broken -- free space and traffic cells
+         got broken after closing the setup dialog (this bug was present
+         only in 0.16a beta).
+
+ Fixed:	Pipe Monitor (08.10.1999)
+	Fixed an error with log buffer memory allocation -- memory hasn't
+         been allocated at all after turning the log on in the setup dialog,
+         which caused logging to stop. However memory allocation at startup
+         or manual buffer size change worked fine.
+
+ Added:	Pipe Monitor (08.10.1999)
+	The cell text and background color how depends of the actual cell
+         content -- you may set different colors if the cell value is equal
+         to, less or greater than specified value. Both text length and
+         content matter (e.g. if the cell text is longer than yours it
+         assumed to be "greater").
+
+ Added:	Pipe Monitor (06.10.1999)
+	Cell color setup enhanced. You may now set text and background
+         color for each cell, as well as default colors for the entire
+         aplication.
+
+ Added:	Pipe Monitor (22.09.1999)
+	All the changes made in the pipe setup dialogs now apply immediately
+         so you can watch the result while continuing the process of setup.
+
+ New:	Pipe Monitor (08.09.1999)
+ 	19 new cells with pre-defined pipes for ThermoProtect the environment
+         monitor which allows to keep an eye on your motherboard and CPU
+         temperature, voltage and other parameters (=> David Wei).
+
+ Fixed: Pipe Monitor (06.09.1999)
+	A "process count" display is removed from the "system processes"
+         cell, which shows the number of running tasks, modules, etc.
+         This is made after numerous requests from users who were confused
+         by the numbers it showed (it looks that the "proccnt" field of
+         the PQGLOBAL structure contains something other than the number
+         of processes).
+
+ Added:	CD Player (06.09.1999)
+	A track list in the popup menu -- to allow fast switching between
+         tracks.
+
+ Added:	Pipe Monitor (22.03.1999)
+ 	"Lazy shrink" feature -- makes often updated cell shrink only
+         after a small delay. This prevents Pipe Monitor window from
+         jumping (making itself bigger or smaller every time because
+         of cell text changes).
+
+ New:	Pipe Monitor (22.03.1999)
+ 	New cell -- a pre-defined pipe (\PIPE\AICQ) for AICQ -- the textmode
+         ICQ client (=> Pavel Nikiforov).
+
+ Fixed: Pipe Monitor (16.10.1998)
+	All the POP3 commands now terminated with CR-LF pair according to
+         the RFC (previous versions sent LF only which worked with almost
+         all servers except for MS Exchange) (=> Vitali E. Pelenyov).
+
+
+===============================================================================
+v 0.15 (13.10.1998)
+-------------------------------------------------------------------------------
+ Fixed: Pipe Monitor (13.10.1998)
+	POP3 passwords with '@' characters inside are supported from now.
+
+ Fixed: Pipe Monitor (13.10.1998)
+	Complex POP3-server messages support. Some servers send relatively
+         long messages to the client which caused monitor to treat the rest
+         of such a message as a reply to its next command (=> Serge Pashanin).
+
+ Added: Pipe Monitor (13.10.1998)
+	"Show server output" option for POP3 monitor cell with full server
+         conversation logging.
+
+ Fixed: Pipe Monitor (08.10.1998)
+	Pipes were inoperate with at least one active TCP/IP-related cell
+         (=> Vit Timchishin).
+
+ New:	Pipe Monitor (15.09.1998)
+ 	New cell - a pre-defined pipe (\PIPE\KBDLAY2) for Keyboard Layer/2
+         keyboard layout switcher (=> Dmitry Steklenev).
+
+ Added: Pipe Monitor (15.09.1998)
+	Support of commandline arguments for applications to launch. Also
+         implemented the special "%s" parameter which is replaced by the
+         current cell content.
+
+ Fixed: Pipe Monitor (15.09.1998)
+	"On-change" application launch caused SYS3175 sometimes
+         (=> Nenad Milenkovic).
+
+
+===============================================================================
+v 0.14 (14.09.1998)
+-------------------------------------------------------------------------------
+ Added: Pipe Monitor (14.09.1998)
+	Properties dialog now opened automatically at startup if no cells
+         defined.
+
+ Fixed: Pipe Monitor (14.09.1998)
+	The new cell could share the neighbour's log buffer at creation via
+         properties dialog. This caused logs to be mixed (=> Vit Timchishin).
+
+ New:	Pipe Monitor (07.09.1998)
+	Two new cells -- incoming and outgoing traffic statistics (current,
+         average, peak CPS, and total bytes). Thanks to Sergey I. Yevtushenko
+         and Vit Timchishin for code samples.
+
+ Added:	Pipe Monitor (07.09.1998)
+	Starting and ending records are now written to every cell log at
+         monitor startup/shutdown (=> Denis Dubensky).
+
+ Fixed:	Task Switcher (07.09.1998)
+	Bad tooltip window (task title) behavior which caused it to pop
+         up through other windows.
+
+ New:	Pipe Monitor (06.09.1998)
+	New cell type -- POP3 mailbox peeker: shows number of messages and
+         the total size. Dynamic MPTS DLL bindings is used (the rest of
+         monitor will still work without these libraries).
+
+ Added:	Clock (27.08.1998)
+	Seconds are optional now (=> Steven White).
+
+ New:	Pipe Monitor (27.08.1998)
+	New cell type - system process info (active threads, processes,
+         threads, modules ) (=> Denis Dubensky).
+
+ Added:	Pipe Monitor (27.08.1998)
+	Optional month name display in calendar cell (=> Denis Dubensky).
+
+ New:	Pipe Monitor (13.08.1998)
+	New cell type - system uptime (=> Andrey Serdiukov).
+
+ New:	Pipe Monitor (13.08.1998)
+	New cell type - calendar (=> Rafael Manasyan).
+
+ Fixed: Pipe Monitor (13.08.1998)
+        Fixed max CPU meter value. Sometimes the old method calculated
+         very strange results.
+
+ Fixed:	Task Switcher (13.08.1998)
+	Configuration now saved automatically after editing/removing
+         an exception with pop-up menu.
+
+ New:	Docs (03.08.1998)
+ 	Thomas Voggenreiter has sent me a German translation of README file.
+
+ Fixed: Pipe Monitor (24.07.1998)
+ 	Fixed a nasty bug with caused changing driveletter of the filename
+         in file monitor (=> Denis Dubensky).
+
+ Fixed: all modules (22.07.1998)
+        An attempt to fix an odd "pop/hide" window behaviour. :)
+ 
+ Added: Pipe Monitor (22.07.1998)
+ 	An alternate CPU load meter added. It uses DosPerfSysCall (thanks
+         to Sergey I. Yevtushenko again) and available only in OS/2 with
+         latest fixpacks. An old one caused traps 000E with in systems
+         while working fine with others (=> Andrey Serdiukov).
+
+ Fixed: Pipe Monitor (22.07.1998)
+	Freespace monitor now supports large partitions (larger that 4.2Gb)
+         (=> Alexander Cherkaew).
+
+ Fixed: Pipe Monitor (20.07.1998)
+	Drive selection control for freespace monitor has been broken in
+         the previous version (0.13c) (=> Alexander Cherkaew).
+
+ Fixed: Pipe Monitor (13.07.1998)
+	"Empty" cell value caused cell refresh problems when set.
+
+ Added:	Task Switcher (30.05.1998)
+        The list of tasks added to the main pop-up menu (=> Eugen Kuleshov).
+
+ Added:	Task Switcher (29.05.1998)
+ 	Fixed size for switcher window. You can define the exact size (in
+         cells) for the task switcher window. I will display only the tasks
+         that fit into that count (=> Eugen Kuleshov).
+
+ Fixed: Pipe Monitor (29.06.1998)
+ 	Possible bug in log buffer memory allocation.
+
+ Added:	Pipe Monitor (26.06.1998)
+	Cell log feature: you may turn on cell logging, which will store
+         all the cell update history in the internal buffer and/or external
+         file with optional timestamping (=> Vit Timchishin).
+
+ New:	Pipe Monitor (24.06.1998)
+	New cell type - clock (=> Vit Timchishin).
+
+ Added: Pipe Monitor (24.06.1998)
+        Event-driven program launch: it is possible to set up an application
+         which will be automatically started at every cell text change (on
+         message arrival or observable object status change).
+
+ Added: Pipe Monitor (24.06.1998)
+	Cell setup dialogs enhanced: added the ability to "turn off" the cell,
+         to define a default text (instead of blank cell), etc.
+
+ Added: CD Player (07.06.1998)
+ 	Random track order (=> Alexander Anisimoff).
+
+ Added: CD Player (07.06.1998)
+ 	Drive letter autodetect every time the player is started (for the
+         systems with removable media drives which can affect drive letter
+         assignments (=> Andrea Penna).
+
+ Fixed:	Task Switcher (26.05.1998)
+	Minimum custom cell size set to 8 pixels (=> Eugen Kuleshov).
+
+ Fixed:	Task Switcher (19.05.1998)
+	"New exception" button was inoperate with empty exception list
+	 (=> Denis Dubensky).
+
+ Added:	Task Switcher (15.05.1998)
+	Exceptions implemented -- instead of old hide/show filters. With
+         these exceptions you can hide of show tasks in the Switcher window,
+         hide applications in system task list and exclude them from Alt-Esc
+         switch sequence.
+
+ Fixed: Pipe Monitor (05.05.1998)
+ 	Text buffer size increased from 64 to 128 bytes (=> Vit Timchishin).
+
+ Fixed: Pipe Monitor (05.05.1998)
+ 	Fixed an error which caused extra characters to be added to the
+         end of pipe messages without terminator (0 character, CR or LF)
+         (=> Andrey Buzanakow).
+
+ Added: Pipe Monitor (27.04.1998)
+	New cell which displays available physical memory amount.
+
+ Added: CD Player (24.04.1998)
+	The ability to autimatically start playing again after the last track.
+
+ Added:	All components (14.04.1998)
+	Window position can be locked now (to prevent mouse move).
+
+ Fixed:	Task Switcher (13.04.1998)
+	Task title source is now selectable (window title or switchlist
+	 title). This is because of some VIO apps which update switchlist
+         entries only.
+
+ Added:	Task Switcher (13.04.1998)
+	Left mouse buttin click will now minimize the task if it's a
+         forergound window (and still switch to it else) (=> Giuliano Lotta).
+
+ Fixed: Pipe Monitor (24.03.1998)
+	Pipe Monitor crashed at heavy data transfer (for example, when
+         redirecting log writers or type command output) (=> Vit Timchishin).
+
+
+===============================================================================
+v 0.12 (20.03.1998)
+-------------------------------------------------------------------------------
+ New:	Mailing list - sysbar-project@lab321.ru (20.03.1998).
+
+ Fixed: CD Player (11.03.1998)
+	More accurate multithreading (=> Stepan Kazakov)
+
+ Fixed: Pipe Monitor (01.03.1998)
+        Free space display problems with locked drives (=> Denis Dubensky).
+
+ Fixed: Pipe Monitor (01.03.1998)
+        "Disk free space" cell were saved twice when saving configuration.
+
+ Fixed:	Task Switcher (01.03.1998)
+ 	When task has no title then a title of neighbour cell was displayed.
+
+ New:	CD Player (01.03.1998)
+ 	IOCtl engine implemented. Multimedia is not required no more.
+
+ Added: Pipe Monitor (18.12.1997)
+ 	Cell control page changed. All the cell setup controls moved to
+         the separate dialog.
+
+ Added: Pipe Monitor (18.12.1997)
+ 	Added the ability to setup current cell using its context menu.
+         It's faster than walking through properties dialog pages.
+
+ Fixed:	Task Switcher (18.12.1997)
+ 	Task title is not limited to 64 characters anymore.
+
+ Fixed: Pipe Monitor (25.11.1997)
+        Cell configuration now saved when removing cells using menu.
+
+ Fixed: Pipe Monitor (24.10.1997)
+ 	Battery status format changed. It now displays batteru status in
+         both modes (AC and DC) (=> Yasushi Ono).
+
+ Added: Pipe Monitor (09.10.1997)
+ 	"Copy cell" command - to send cell content to clipboard
+         (=> Andrew Terñshechkin).
+
+ Fixed: All modules (09.10.1997)
+ 	Position adjustment when changing size and corner bind feature is on.
+
+ Added: Pipe Monitor (22.09.1997)
+ 	New cell type: battery status monitor (=> Yasushi Ono).
+
+ Added: Pipe Monitor (22.09.1997)
+ 	New cell type: a file monitor (it displays file count and size
+         of the one or several files using the given file mask).
+
+ Fixed:	All the modules have been retorned to tasklist (22.09.1997)
+ 	 (it was a temporary change).
+
+ Added: Pipe Monitor (19.09.1997)
+ 	New cell type: a free space monitor
+
+ Added: Pipe Monitor (18.09.1997)
+ 	New cell type: a CPU load meter (by Sergey I. Yevtushenko).
+
+ Added: Pipe Monitor (18.09.1997)
+        Background color selection.
+
+ Fixed: Pipe Monitor (18.09.1997)
+ 	Pipe data input speedup (=> Sergey I. Yevtushenko).
+
+ Added: Pipe Monitor (17.09.1997)
+ 	New cell setup engine. Several cell types with unlimited parameter
+         sets allowed.
+
+ Added: SYSBAR2.DLL (17.09.1997)
+ 	Universal long config entry parser.
+
+ Added: documentation (11.09.1997)
+ 	Italian version of README file (by Gianluca Della Vedova).
+
+ Fixed:	Task Switcher (28.08.1997)
+ 	Task list has been reversed: a new icons will appear appear in the
+         new cell expanding the window (instead of shifting the whole set
+         of existing icons) leaving old icons in their places
+         (=> Andrew Terñshechkin).
+
+ Added: documentation (22.08.1997)
+ 	Russian version of README file, component usage details.
+
+ Added: Task Switcher (22.08.1997)
+ 	Icon background color selection (=> Thorsten Haude).
+        I've started to use buffered drawings.
+
+ Added: Task Switcher (21.08.1997)
+ 	New mouse actions:
+          left - switch to task;
+          right - pop-up menu;
+          left+right (right when holding left) - minimize task;
+          right+left (left when holding right) - kill task.
+        ...a bit unusual, but... I like it now :)
+
+ Fixed:	Task Switcher (21.08.1997)
+ 	Removed pause before switching to task (a program was waiting for
+         a doubleclick, the doubleclick feature has been removed too)
+         (=> Thorsten Haude).
+
+ Added: SYSBAR2.DLL (21.08.1997)
+ 	Standard color selection routines.
+
+ Added: Pipe Monitor (13.08.1997)
+	Cell executable assignment. You can assign applications for each
+         cell to run with mouse doubleclick.
+
+ Added: Pipe Monitor (13.08.1997)
+	Expire time feature. A cell contents can expire and disappear after
+         specified number of seconds (=> Andrew Terñshechkin).
+
+ Fixed:	Pipe Monitor (12.08.1997)
+ 	Pipe name input check. You can now enter only the significant end
+         of your pipe name, a full name will be completed automatically,
+         "\PIPE\" will be added if needed. And the same for pipe description.
+
+ Fixed:	Task Switcher (12.08.1997)
+	Empty filter string check (to not allow user to add an empty string
+        as an application name - if you try do this in the old version then
+        all the icons will disappear immediately, if hide filter is on).
+
+ Fixed:	Dialog fields enlarged in all the components (12.08.1997)
+ 
+ Fixed:	All the modules have been removed from tasklist (08.08.1997)
+
+
+===============================================================================
+v 0.10 (10.07.1997)
+-------------------------------------------------------------------------------
+ Added:	Clock (09.07.1997)
+ 	12-hour mode (=> Casey Bralla).
+
+ Fixed: Task Switcher (29.06.1997)
+ 	The true copy of task system menu (thanks to Peter Fitzsimmons).
+
+ Added: Task Switcher (26.06.1997)
+ 	Task system menu call.
+
+ New:   Pipe Monitor (20.06.1997)
+
+ Fixed: SYSBAR2.DLL (19.06.1997)
+ 	Floating description window stuff has been moved into DLL.
+
+ Fixed: SYSBAR2.DLL (18.06.1997)
+ 	A font loader/saver has been moved into DLL.
+
+
+===============================================================================
+v 0.09 (17.06.1997)
+-------------------------------------------------------------------------------
+ Added: Task Switcher (17.06.1997)
+ 	Third filter page - to allow setup of ALL the filtering options.
+
+ Fixed: Task Switcher (17.06.1997)
+ 	Font selection dialog trap at first start (when passing an empty
+         FATTRS structure) - seems to be a PM bug fixed in fixpack #29
+         (in #17 and in OS/2 4.0 it still traps) (=> Maxim Penzin).
+        (He-he! 29th fixpack - rulez, I've installed it 2 weeks ago :).
+
+ Added: Task Switcher (16.06.1997)
+ 	Task information window.
+
+ Fixed: Task Switcher (16.06.1997)
+ 	Font acception bug found :(. Using font selection dialog instead.
+
+ Added: Task Switcher (13.06.1997)
+ 	4 float on top modes, corner bind feature.
+        Drag-and-drop fonts support (for pop-up task names).
+         (Only BITMAP fonts supported yet).
+
+ Added: Task Switcher (11.06.1997)
+        Task-specific menus (no more dialogs).
+
+ Added: Clock (10.06.1997)
+ 	4 float on top modes, corner bind feature.
+
+ Fixed: Installation Script (10.06.1997)
+ 	The installation script was unable to create an animation icon
+         for SysBar/2 folder.
+
+ Fixed: Task Switcher (10.06.1997)
+        Codepage support. The default codepage has been used to display
+         pop-up application titles (=> Alexander Bezborodov).
+        
+ Fixed: Clock (07.06.1997)
+        BYTEALIGN main window status eliminated.
+
+ Fixed: SYSBAR2.DLL (07.06.1997)
+ 	A properties dialog template has been moved into DLL.
+
+ Added: CD Player (07.06.1997)
+ 	4th float on top mode: pop-up on mouse movement and then hide
+         back when cursor leaves window.
+
+ New:	News summary in this file (06.06.1997)
+
+ Added: CD Player (06.06.1997)
+ 	Corner bind feature: a window will be placed at startup directly
+         in the one of screen corners (=> Maxim Penzin).
+
+ Fixed: Task Switcher (05.06.1997)
+	After closing of some applications their sub-windows may appear
+         in task list as a small gray question marks. I've found that it
+         happens if you close a parent BEFORE its child windows. Then this
+         child will remain in switchlist with no icon and zero PID. It seems
+         to be an OS/2 PM bug (this exists in both Warp 3.0 & Merlin).
+        Fixed: PID=0 check added.
+
+ Added: CD Player (04.06.1997)
+ 	A new float on top mode: pop-up on mouse movement.
+        BYTEALIGN main window status eliminated.
+
+
+===============================================================================
+v 0.08 (02.06.1997) - hot bugfix release
+-------------------------------------------------------------------------------
+ Fixed: notebook tabs for all modules (02.06.1997)
+ 	Merlin-oriented properties dialogs, were looked BAD in Warp 3.0.
+        Proper dialog & tab creation code added (=> Andrew Terñshechkin).
+
+
+===============================================================================
+v 0.07 (28.05.1997)
+-------------------------------------------------------------------------------
+ New:	I'M BACK!!! :)
+ 	It gonna be a thing I will waste my evenings to.
+
+ Added: CD Player (28.05.1997)
+        Properties notebook in Merlin's style.
+
+ New:	REXX-script for folder creation (27.05.1997)
+
+ Fixed:	short names (8.3) for all modules (=> Alexander Ernst) (27.05.1997)
+
+ Added: Clock (27.05.1997)
+        Properties notebook in Merlin's style.
+
+ New:	SysBar/2 folder icons (16.05.1997)
+
+ Added:	English version of history (15.05.1997)
+
+ Fixed: SYSBAR2.DLL traps (14.05.1997)
+ 	I've found at last why SYSBAR2.DLL was crashing in last 6 months
+ 	when I tried to launch second SysBar/2 family application (with
+        the one instance working). It was because of new version of Watcom
+        C/C++ 10.5, which I've installed last autumn. It just has another
+        default value for DGROUP sharing :). It was only one additional
+        option in makefile or one checkbox in the setup window. Damn!
+
+
+===============================================================================
+v 0.06 (27.11.1996)
+-------------------------------------------------------------------------------
+ New:	All the modules packed with lxLite by Andrew Zabolotny.
+
+ Added: Task Switcher (27.11.1996)
+        Pop-up application titles.
+
+ Added: Task Switcher (04-20.11.1996)
+        Properties notebook in Merlin's style.
+        Filters: "hide apps" and "show only..." (=> Alexander Ernst).
+
+
+===============================================================================
+v 0.05 (15.08.1996)
+-------------------------------------------------------------------------------
+ Added: Task Switcher (15.08.1996)
+        "Custom cell size" mode.
+
+ Added: All the setup options for each module moved to a single dialog
+ 	  window (no more huge menus!) (15.08.1996).
+
+ Fixed: OS/2 4.0 specific fixes ("Merlin" beta build 21) (12.08.1996)
+ 	There are some difference in Merlin's WM_ERASEBACKGROUND message
+          processing (or I was processing in wrong in all the previous
+          versions): all the windows missed their borders under this
+          OS/2 release. As I can understand it supplies a HPS the
+          program can not draw at.
+        Window drawing algorithm rewritten for all modules.
+
+ Fixed: CD-player (04.06.1996)
+ 	Significantly changed all the player engine:
+          - cdaudio mci-device handling technology changed to binary
+           "MCI command messages" interface (the previous "string command
+           interface" was eliminated) (=> Stanislav Grushko);
+          - the final implementation of event-driven architecture, all the
+           remaining pollings, timed delays, etc. in message processing
+           loop were removed;
+          - "MCI command messages" result: a higher quality of track time
+           calculation (=> Alexander Ernst);
+          - other small fixes.
+
+
+===============================================================================
+v 0.04b (26.05.1996)
+-------------------------------------------------------------------------------
+ Added: "Large size" mode for all modules (=> Serge Popov)
+ 	  (made after switching to 1024*768 on 14" monitor :)
+ 
+ Fixed: Task Manager
+        Optimal icon image selection (OS/2 icons usually contain at least
+          two different-size images).
+          
+ Added: Task Manager
+ 	"Fit icons" mode (the cell size in this mode exactly matches the
+          system icon size) (=> Alexander Ernst).
+        "Swap mouse buttons" mode (=> Stanislav Grushko). Default buttons
+          reversed.
+
+
+===============================================================================
+v 0.03b (25.05.1996) - hot bugfix release
+-------------------------------------------------------------------------------
+ Fixed: Task Switcher
+        Wrong window position saving in "South" & "West" modes.
+        "?" mark for windows without icons.
+
+ Fixed: CD-player
+ 	Yet another system load decrease when waiting for non-audio disc
+          removing (as a result - the longer delay at new disc detection).
+        An attempt to open cdaudio device in "shared" mode. (But what
+          have I received?)
+
+ Added: Clock & CD-player
+        "Monochrome" mode (=> George Brink).
+
+ Added: "Save options" in all the menus (=> Alexander Ernst)
+
+
+===============================================================================
+v 0.02b (24.05.1996)
+-------------------------------------------------------------------------------
+ Added: "About..." dialogs for all modules.
+
+ Fixed: CD-player
+ 	Advanced determination of non-audio discs.
+        Slight descrease of system load on disc existance checks.
+          (Version 0.01b was causing too heavy system load making
+          problems for applications that work with data CDs).
+        "Auto-disable on no-audio CD" mode. A possibility to automatically
+          turn off CD-player on data CD insertion (much better than looking
+          for "Disable player" in menus :). But you still have to turn it
+          on manually.
+
+ New:   Task Switcher
+ 	Task list display (as icons).
+        Four window grouth directions.
+        Switching to a task with right mouse button click.
+        Minimizing a window with right mouse button double-click.
+        Task options dialog on left mouse button click.
+
+
+===============================================================================
+v 0.01b (20.05.1996) - first public release
+-------------------------------------------------------------------------------
+ Added: Clock
+        "Always on top" mode.
+        Saving configuration on exit.
+        "Set time" dialog.
+
+ New:   CD-player
+        Commands: play/pause, stop/eject, next, prev.
+        Current mode display.
+        Four time display modes (from track start, track rest,
+          from disc start, disc rest)
+        Non-audio disc (data disc) determination.
+        "Disabled" mode.
+
+
+===============================================================================
+v 0.00  (autumn'1995)
+-------------------------------------------------------------------------------
+ New:   clock :)
+        The first attempt to create something useful.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

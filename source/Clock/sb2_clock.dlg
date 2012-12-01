@@ -1,0 +1,122 @@
+/*
+
+  SysBar/2 Utility Set  version 0.23
+
+  Clock dialogs
+
+  ..................................................................
+
+  Copyright (c) 1995-1999  Dmitry I. Platonoff <dip@platonoff.com>
+  Copyright (c) 2002,04    Max Alekseyev       <relf@os2.ru>
+
+                           All rights reserved
+
+  ..................................................................
+
+  LICENSE
+  ~~~~~~~
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the following
+     disclaimer in the documentation and/or other materials provided
+     with the distribution.
+
+  3. Redistributions of any form whatsoever, as well as all
+     advertising materials mentioning features or use of this
+     software (if any), must include the following acknowledgment:
+     "This product includes software developed by Dmitry I. Platonoff".
+
+  4. The names "SysBar/2" and "Dmitry I. Platonoff" must not be
+     used to endorse or promote products derived from this software
+     without prior written permission. For such permission, please
+     contact dplatonoff@canada.com.
+
+  5. Products derived from this software may not be called
+     "SysBar/2" nor may "Dmitry I. Platonoff" appear in their
+     contributor lists without prior written permission.
+
+  ..................................................................
+
+  DISCLAIMER
+  ~~~~~~~~~~
+  THIS SOFTWARE IS PROVIDED BY THE AUTHOR OR CONTRIBUTORS "AS IS"
+  AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  AUTHOR OR THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*/
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "sb2_clock_res.h"
+
+DLGTEMPLATE DLG_ABOUT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "About SysBar/2 Clock", DLG_ABOUT, 0, 0, 180, 85, NOT 
+            FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "", D_Version, 4, 29, 152, 50
+        LTEXT           "SysBar/2 Clock", 401, 10, 58, 140, 10, DT_VCENTER | DT_WORDBREAK
+        LTEXT           "", D_Copyright1, 10, 47, 140, 10, 	DT_VCENTER | DT_WORDBREAK
+        LTEXT           "", D_Copyright2, 10, 36, 140, 10, 	DT_VCENTER | DT_WORDBREAK
+        ICON            ICO_MAIN, ICO_MAIN, 166, 60, 21, 16, WS_GROUP
+    END
+END
+
+DLGTEMPLATE DLG_SETTINGS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "SysBar/2 Clock settings", DLG_SETTINGS, 0, 0, 172, 90, NOT 
+            FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "Display on top", D_Display, 3, 38, 57, 48
+        AUTORADIOBUTTON "~No", D_Display_None, 10, 68, 45, 10, WS_GROUP
+        AUTORADIOBUTTON "~Always", D_Display_OnTop, 10, 59, 45, 10
+        AUTORADIOBUTTON "Pop-~up", D_Display_Popup, 10, 50, 45, 10
+        AUTORADIOBUTTON "Pop/~hide", D_Display_Popup2, 10, 41, 45, 10
+        GROUPBOX        "Bind to corner", D_Bind_Corner, 63, 56, 57, 30
+        AUTORADIOBUTTON "~Off", D_Bind_Off, 82, 64, 22, 10, WS_GROUP
+        AUTORADIOBUTTON "", D_Bind_NW, 68, 69, 10, 10
+        AUTORADIOBUTTON "", D_Bind_NE, 106, 69, 10, 10
+        AUTORADIOBUTTON "", D_Bind_SW, 68, 57, 10, 10
+        AUTORADIOBUTTON "", D_Bind_SE, 106, 57, 10, 10
+        GROUPBOX        "Size", D_Size, 123, 56, 43, 30
+        AUTORADIOBUTTON "~Small", D_Size_Small, 130, 68, 32, 10, WS_GROUP
+        AUTORADIOBUTTON "~Large", D_Size_Large, 130, 59, 32, 10
+        AUTOCHECKBOX    "Monoch~rome", D_Display_Mono, 63, 45, 58, 10, 
+                        WS_GROUP
+        AUTOCHECKBOX    "Loc~k position", D_Lock_Position, 63, 35, 58, 10
+        AUTOCHECKBOX    "12-h ~mode", D_Display_12h, 123, 45, 49, 10, 
+                        WS_GROUP
+        AUTOCHECKBOX    "S~econds", D_Display_Seconds, 123, 35, 49, 10
+        GROUPBOX        "Time/Date", D_Time, 3, 2, 165, 34, WS_GROUP
+        SPINBUTTON      D_Time_Hours, 8, 17, 24, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTLEFT
+        SPINBUTTON      D_Time_Minutes, 34, 17, 24, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTLEFT
+        SPINBUTTON      D_Time_Seconds, 60, 17, 24, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTLEFT
+        PUSHBUTTON      "Set ~time", D_Time_Set, 7, 5, 79, 10, WS_GROUP
+        SPINBUTTON      D_Date_Month, 89, 17, 48, 12, SPBS_READONLY | 
+                        SPBS_MASTER | SPBS_JUSTLEFT
+        SPINBUTTON      D_Date_Day, 139, 17, 24, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTLEFT
+        PUSHBUTTON      "Set ~date", D_Date_Set, 89, 5, 75, 10, WS_GROUP
+    END
+END

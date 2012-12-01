@@ -1,0 +1,475 @@
+
+
+                                  SysBar/2
+                                 ~~~~~~~~~~
+                    toolbar-style utility set for OS/2 PM
+                                version 0.22
+
+            (c) 1995-99 by Dmitry I. Platonoff <dip@platonoff.com>
+                 (c) 2002,03  by Max Alekseyev <relf@os2.ru>
+
+
+                                *************
+                                 README file
+                                *************
+
+
+===============================================================================
+                                   OVERVIEW
+-------------------------------------------------------------------------------
+SysBar/2 is the next generation of SysBar, a toolbar-style utility. The first
+version (Win16) was written in 1995 from an impression of the Win95 taskbar,
+seen once in early betas. It looked like the OS/2 Warp 4.0 WarpCenter, more
+than year before it emerged! It had the same functionality - taskbar, trays &
+info displays. I use it now as a Win-OS/2 shell and even in Win NT 3.51 as a
+program launcher.
+
+In this new generation I've decided to split the whole product into a set of
+small utilities. The set now consists of these four modules:
+   - clock (the one I really missed from Windows SysBar) - it lives well
+        on the top of WarpCenter's clock :) ;
+   - a floating task switcher;
+   - a pipe monitor - the utility which can retrieve system information,
+        can read data from any number of named pipes and display it in the
+        useful form as a row of cells;
+   - a tiny CD player.
+
+
+===============================================================================
+                                DISTRIBUTION
+-------------------------------------------------------------------------------
+SysBar/2 is a *FREEWARE* product. This program is developed and distributed
+in the hope that it will be useful, but WITHOUT ANY WARRANTY.
+
+
+===============================================================================
+                             SYSTEM REQUIREMENTS
+-------------------------------------------------------------------------------
+All you need is a 486 or better computer and OS/2 Warp 4.0. It will work
+also under 3.0 (and even 2.1x - I just have no such a system to check, please
+report me the results of your try if you still have such a dinosaur running :).
+TCP/IP services, if installed in your system, will also add some extra
+functionality to SysBar/2, although it works well without these services
+(dynamic DLL bindings are used).
+
+
+===============================================================================
+                                INSTALLATION
+-------------------------------------------------------------------------------
+There's no sophisticated installation software supplied. Just unzip the
+package into any directory and enjoy! ;)  There is a folder creation script,
+called SB2_FLDR.CMD. It will create the SysBar/2 folder on your desktop and
+all the required program icons.
+
+The files in package are:
+        FILE_ID .DIZ      371  - package description
+        SB2_CD  .Exe   32,307  - CD player executable
+        SB2_CLCK.Exe   21,344  - clock executable
+        SB2_FLD1.ICO    4,026  - folder icon
+        SB2_FLD2.ICO    4,026  - open folder icon
+        SB2_FLDR.CMD    1,080  - folder creation script
+        SB2_Pipe.Exe   60,832  - pipe monitor executable
+        SB2_TSWT.Exe   30,753  - task switcher executable
+        sysbar2 .dll   20,058  - a DLL with common GUI subroutines
+        \docs                  - documentation
+        \info_src              - information source script sample
+
+
+===============================================================================
+                                    USAGE
+-------------------------------------------------------------------------------
+All the modules have the same look, behaviour & controls. You can drag them
+anywhere with left mouse button and invoke a pop-up menu with the right mouse
+button. There is one exception: in Task Switcher the drag and pop-up menu
+functions will work only when clicking the empty edge of the window --
+in other cases you'll get a task-specific action.
+
+All the modules have modern-looking properties dialogs. All the changes you
+make will be applied immediately.  Each module stores its configuration in
+its own text .Cfg file. You can view and alter these files easily (if needed).
+You can also specify a config file name as a first command-line parameter.
+This is useful, for example, when starting multiple pipe monitor instances
+to show different pipe sets.
+
+All the actions are simple and easy to understand. In addition I'll describe
+some task-specific features...
+
+* CLOCK
+        It does only one thing - it displays the time, month and date and
+         allows you to adjust these values. That's all.
+
+* TASK SWITCHER
+        It displays a set of icons representing all the current jobs and
+         windows. You can filter them (hide or show) and perform a number
+         of actions.
+
+        You may define exceptions to control application visibility and
+         other parameters. Every exception must have a title to match the
+         application title beginning. (For example, "Desktop" entry will
+         apply to the desktop icon, and "OS/2" entry will match all the
+         windows such as "OS/2 Command Prompt", "OS/2 System", etc.).
+         Every exception entry can have its visibility set separately for
+         the Task Switcher window and in the system task list (the one
+         which called with Ctrl-Esc). You can also make it "non-jumpable"
+         (excluded from the Alt-Esc switch sequence).
+        DO NOT ADD AN EMPTY STRING TO THE FILTER!
+
+        Mouse controls (when clicking an icon):
+          LEFT BUTTON - switch to task if this task is inactive or minimize
+                if it has focus currently;
+          RIGHT BUTTON - pop-up menu (a complete copy of task's system menu);
+          RIGHT with LEFT (clicking RIGHT BUTTON when holding LEFT already) -
+                minimize task's window;
+          LEFT with RIGHT - close window (kill task).
+        The mouse buttons can be swapped, of course.
+
+* PIPE MONITOR
+        It can:
+        - display the CPU load percentage;
+        - display available physical memory;
+        - display available drive/partition space;
+        - monitor specified file size and file counts;
+        - display current power or battery usage status;
+        - display current time;
+        - display current date;
+        - display system uptime;
+        - display the number of currently running processes and threads;
+        - monitor POP3 mailox;
+        - display network interface traffic statistics;
+        - display current keyboard layout for Keyboard Layer/2 KBD switcher;
+        - display current status for AICQ (a textmode ICQ client);
+        - display SETI@HOME completion percentage;
+        - display CPU and motherboard temperature, voltage and other
+         parameters (together with the ThermoProtect monitor);
+        - open a number of named pipes (in the server mode) and read data
+         from these sources. Any text arriving through the pipe will be
+         displayed in a separate (for every pipe) cell using its own
+         colour. This is useful for displaying system information, for
+         debugging purposes, messaging, etc.
+
+        Number formatting options.
+        ~~~~~~~~~~~~~~~~~~~~~~~~~
+        There are some types of cells which can display byte amounts (like
+         a filesize or available drive space). These number formatting
+         options allow you to setup how to show numbers, when the Pipe
+         Monitor should use Mbytes, Kbytes and bytes and how to name them.
+        For each cell of this type you can setup its own number formatting
+         options or use a default (they are on the second page of display
+         settings.)
+
+        Cell setup.
+        ~~~~~~~~~~
+        There is a "Cells" page in the properties notebook. It allows you
+         to manage information cells of the Pipe Monitor. You can create
+         cells, setup them, assign special parameters, etc.
+
+        Every cell has its own name. You can also type a string in the
+         "Prefix" field. This string will be placed in the beginning of
+         the cell text (to let you know what this cell about :). Another
+         field named "Empty" defines a string which will be displayed when
+         an empty message arrives or when there is nothing to display;
+         for example, there are no files for the file monitor.
+
+        For each cell you may set its own text and background color.
+         Moreover, it can change its color automatically when the monitored
+         value reaches a certain level. You can specify conditions for both
+         text or numeric data cells. For example, you may paint your CPU load
+         cell red for high load (>80%), yellow for medium (>50%) and leave
+         the green for the rest as the default color. Or paint the "LATIN"
+         keyboard layout blue and "RU411" red, the default Keyboard Layer/2
+         colors. Please note that you have to specify the exact values to
+         compare (don't forget "%" for CPU load, "Mb" for megabytes and so on).
+         Not only text content matters, but its length as well (e.g. if the
+         cell text is longer than yours it assumed to be "greater").
+
+        There's also a special "lazy shrink" feature. It makes often updated
+         cell shrink only after a certain delay. This prevents Pipe Monitor
+         window from jumping (making itself bigger or smaller every time
+         because of cell text changes).
+
+        You can assign two applications for each cell: one to launch when
+         you double-click the cell and another to launch at every text change
+         (USE IT WITH CAUTION! Do not setup such a thing for frequently
+         updated cells like clock or CPU meter! But this is good to start
+         your mail reader when your mail arrived. Note also that this program
+         will not be launched on an empty message or if you clear the text
+         manually.) Just enter an executable name, e.g. "d:\my_dir\my_app.exe",
+         or use the "Browse" button. You can also supply commandline arguments
+         as well as the special "%s" parameter which will be replaced with
+         the current cell text.
+
+        All the cell changes can be logged in the internal buffer or an
+         external log file. You can assign the log file name, turn on
+         timestamping and select the size of internal buffer (this allows
+         you to browse the latest cell changes).
+
+        When creating a cell you must setup its data type and some special
+         parameters. If you press the "Setup" button, a cell setup dialog will
+         appear. You must select cell type and set its options.
+
+        The following cell types exist:
+
+        - "CPU load meter", a cell that shows CPU load percentage. It has a
+                refresh timeout (in seconds) and the ability to limit the CPU
+                load value to 99% (to remain within two characters).
+                There's an alternate CPU meter available on some systems
+                with latest fixpacks applied (it will appear as "Use newer
+                DosPerfSysCall method" checkbox). The old one caused traps
+                on some systems while working fine with others, so I've
+                included this new one as an option;
+
+        - "available physical memory", shows the amount of free physical
+        	memory. It also has only a refresh timeout;
+
+        - "drive/partition free space", a cell that displays available space
+        	on the specified drive. Its parameters are: drive, refresh
+                timeout and number formatting options;
+
+        - "file monitor", a file monitor which shows the size and/or count
+                of the file(s) specified by mask. Its parameters are: file
+                specification, refresh timeout and number formatting options;
+
+        - "battery status", a power or battery usage monitor. Its parameter
+                is the refresh timeout. NOTE: it will work only if you have
+                advanced power management driver installed (APM.SYS);
+
+        - "clock", shows current time. It has the same refresh timeout and
+                two switches: to toggle the display of seconds and
+                select either AM/PM or 24-h mode;
+
+        - "calendar", shows current date. It has same refresh timeout and
+                four switches: to turn on/off day of the week, month, year
+                and month format. Actually the calendar and clock cells in
+                the Pipe Monitor offer more functionality than the Clock
+                module itself. But I like its LCD display style, and also it
+                was the first module in the entire SysBar family. so I still
+                keep it included in the package.
+
+                You can also replace the weekday and month names in the end of
+                SB2_PIPE.Cfg file with your own (possibly, in your
+                language).
+
+        - "system uptime", shows how long your system has run since the
+                last reboot. It has a refresh timeout (as always)
+                and two switches: to turn on/off the display of seconds
+                and days (e.g. "57 hours" or "2 days and 9 hours");
+
+        - "system processes", shows the count of active tasks, threads and
+		modules. It has its refresh timeout and three switches to
+                control the appearance of all the numbers mentioned above;
+
+        - "POP3 mailbox", shows the number of messages and their total size
+                in a POP3 mailbox. It has its refresh timeout (I discommend
+                the use of a timeout less than a minute or so), server URL,
+                and three switches to control the appearance of message
+                count, total size and communication errors.
+
+                URL must be in the standard form of "user:password@host:port",
+                e.g. "scott:tiger@oracle.com". Port is optional, default value
+                is 110. BE CAREFUL: the password is stored in the the same
+                text config file, so keep it from be accessed by strangers.
+
+                There's also one additional switch for debugging purposes --
+                "Show server output". When enabled it will display the
+                exact server output (e.g. "+OK 4 12805") instead of the
+                formatted message count and size. If you turn on cell
+                logging when this switch is set, the program will also log
+                all its conversation with the POP3 server;
+
+        - "IP traffic" -- "incoming" and "outgoing", show incoming and
+                outgoing IP traffic statistics; such as current, average,
+                peak CPS, and the sum of bytes tranferred. It has its
+                refresh timeout, interface selection control (to select an
+                interface to monitor, e.g. LAN, PPP, etc.), and four switches
+                to control the appearance of statistics components.
+
+                It is recommended to place these two traffic cells into a
+                separate window by creating another instance of the monitor.
+                Just specify a different config filename as the first
+                commandline parameter. This will avoid unnecessary
+                window blinking because of the function's high refresh rate.
+
+        - "custom pipe listener", a named pipe reader. It will accept any
+                text arriving through the pipe and display it in the cell.
+                It has two parameters:
+                (1) the exact pipe device name, e.g., "\pipe\my_pipe".
+                This is the name of the pipe for your information
+                source program to send data to.
+                (2) the expire timeout, which is optional.
+                This timeout lets you make a cell's content time-sensitive.
+                The cell will "expire" and disappear after the specified
+                number of seconds (useful for irregular info sources).
+
+                There is also number of special pipes with pre-defined names:
+
+                "AICQ pipe", an AICQ status pipe to be used with AICQ by
+                	Pavel Nikiforov (pavel@intsys.ru). The latest
+                        version of this ICQ client can be downloaded
+                        from ftp://ftp.intsys.ru/pub/aicq/
+
+                "Keyboard Layer/2 pipe", a keyboard layout pipe to be
+                	used with Keyboard Layer/2 by Dmitry Steklenev
+                        (glass@skib.ru). More information about this
+                        powerful keyboard switcher can be found at
+                        http://www.geocities.com/SiliconValley/Vista/7567/
+
+                "SETI@HOME pipe", displays the completion percentage for
+                	SETI@HOME the distributed propram, which goal is
+                        to find the footprints of the extraterrestial life.
+                        The SB2SETI percentage reporter utility written by
+                        Dave Serls (serls@dashs.denver.co.us) is found at
+                        http://www.dimensional.com/~serls/sorbis.html
+
+                "ThermoProtect pipe", the whole bunch of pipes to use with
+                	ThermoProtect by David Wei (davidwei@cybermail.net),
+                        which allows to monitor your CPU and motherboard
+                        temperature and voltage. More product information
+                        is found at http://www.pcenduser.com/ThermoProtect/
+
+        There is an information source example supplied. A REXX script that
+         shows a few simple ways to retrieve system information like hard disk
+         space, swap file size, scan inbound directories, etc. You can modify
+         it for your own needs.
+        All external sources (as well as your own ones) must be started
+         manually from startup.cmd, Startup folder, of from where you like.
+        AND DON'T FORGET TO SETUP APPROPRIATE PIPES IN MONITOR!!!
+
+* CD PLAYER
+        It can play audio CDs. The commands are: play, stop, pause, eject,
+         next track & previous track. There are four time display modes -
+         try the "00:00" button.
+        It doesn't use OS/2 multimedia support, so you can play your audio
+         CDs without having the multimedia installed.
+
+
+===============================================================================
+                                FUTURE PLANS
+-------------------------------------------------------------------------------
+The following are the future plans from the last SysBar/2 release.
+Unfortunately, the product development has stopped and I have no further
+plans to continue it anymore, therefore there's no guarantee they will
+ever be implemented (unless there will be other people contributing to
+the project).
+
+* COMMON
+        - "stick together" feature (=> Terje Flaaronning);
+        - colour drag'n'drop (=> Terje Flaaronning);
+        - activation corners and screen edges (=> Thorsten Haude);
+        - rollup feature (=> Ronny Ko).
+        - an open interface for new module development with SOM object
+            support®âªàëâë© (=> Sergey I. Yevtushenko);
+        ...all this stuff will be implemented in SysBar III.
+
+* CD PLAYER
+	- digital transfer support (=> Dmitry Ban);
+        - an open interface for new multimedia data format players
+            (=> Alexander Krapivin);
+        - disc recognition, disc & track name display;
+        - CDDB support (both local files and internet connections);
+        - programmable track order (=> Ingmar Hensler).
+
+* CLOCK
+        - alarms (pop-up messages & scheduler) (=> Alexander Ernst);
+        - a calendar (=> Tibor Nagy).
+
+* PIPE MONITOR
+        - yet more system information sources.
+
+* TASK SWITCHER
+	- virtual desktops (=> Dmitry Kubov);
+        - window attribute control;
+        - global task management commands.
+
+* !!! NEW COMPONENTS
+        - launch panel;
+        - calculator (=> George Brink).
+
+* !!! IMPORTANT
+        - I'm looking for beta testers;
+        - if you think that SysBar/2 docs should be translated to any
+           language you like - just translate and send all this stuff to
+           me. It will be included in the next release of the product;
+        - if you want to write your own version of English docs - DO IT!
+           I need a fresh look at all this software.
+
+
+===============================================================================
+                              ACKNOWLEDGEMENTS
+-------------------------------------------------------------------------------
+I want to thank these people who helped (and still help) me in this work:
+
+        Andrew Tereshechkin (aka Red Alligator)
+                for the inspiration that made me begin this project,
+                for criticizing all the CD players in the world (including
+                mine :), for ideas, suggestions and a lot of testing work
+
+        my wife Helga
+                for love and support
+
+        Igor E. Fedorenko
+                for OS/2 API tips and some ideas;
+                for POP3 mailbox peeker code
+
+        Maxim Penzin
+                for testing and for some great ideas (especially for the
+                idea of Pipe Monitor)
+
+        Sergey I. Yevtushenko
+                for CPU load meter code samples and PM API tips
+
+        Peter Fitzsimmons
+                for showing me the way to access the system menus
+
+        software developers who built the support for SysBar/2 Pipe Monitor
+        in their products:
+        	Dmitry Steklenev (Keyboard Layer/2)
+                Pavel Nikiforov (AICQ)
+                Dave Serls (SB2SETI)
+                David Wei (ThermoProtect)
+
+        product reviewers:
+		Chris Wenham (OS/2 e-Zine)
+		Ronny Ko (OS/2 Computing! Magazine)
+                Alexander Krapivin (Russian Underground/2)
+                Antonio Manara Rossini (Just WARP!)
+
+
+        README translators:
+        	Gianluca Della Vedova (Italian)
+        	Thomas Voggenreiter (German)
+
+        beta-testers:
+                Andrew Tereshechkin    Maxim Penzin
+                Gianluca Della Vedova  Thorsten Haude
+                Bjorn Tore Hoem        Antonio Manara
+                Denis Dubensky         Stepan Kazakov
+                Vit Timchishin         Eugen Kuleshov
+                Sergey Gryaznov
+
+        and also...
+                George Brink           Stanislav Grushko
+                Serge Popov            Alexander Ernst
+                Emmanuele Vigni        Panacea Tech Support
+                Alexander Bezborodov   Thorsten Haude
+                Yasushi Ono            Alexander Krapivin
+                Andrey Buzanakow       Alexander Cherkaew
+                Andrey Serdiukov       Oleg Kostyuchenko
+                Serge Pashanin
+                ...for additional testing and for attention to the product
+
+===============================================================================
+                            CONTACTING THE AUTHOR
+-------------------------------------------------------------------------------
+The author of SysBar product series is Dmitry I. Platonoff, 27-year-old
+software engineer from Waterloo, Ontario (Canada). I was born in Russia,
+in Omsk (a 1,5-million city in West Siberia), therefore please excuse my
+English :).
+E-mail: dip@platonoff.com
+
+Since version 0.19 SysBar/2 is maintaned by Max Alekseyev. 
+Bugreports/suggestions are welcome!
+E-mail: relf@os2.ru
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+

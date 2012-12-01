@@ -1,0 +1,26 @@
+                          Upload Information Template for Hobbes.nmsu.edu
+                          ===============================================
+
+        Archive Filename: sbr2_023_src.zip
+       Short Description: SysBar/2 ver. 0.23 - a toolbar-style utility set (with sources)
+        Long Description: 
+
+      Proposed directory
+           for placement: /pub/os2/util/wps
+
+               Your name: 
+           Email address: 
+    Program contact name: 
+   Program contact email: 
+             Program URL: 
+
+      Would you like the
+   contact email address
+    included in listings? yes
+
+Operating System/Version: OS/2 Warp 3.0 and above
+ Additional requirements: (none)
+
+                Replaces: sbr2_022_src.zip
+
+

@@ -1,0 +1,201 @@
+
+
+                                  SysBar/2
+                                 ~~~~~~~~~~
+           Conjunto de utilitarios de tipo barra para el PM de OS/2
+                                Versi¢n 0.10
+
+                     (c) Dmitry I. Platonoff, 1995-1997
+                            (2:5004/18.10@fidonet
+                                dip@lab321.ru)
+
+
+                               *************
+                               Archivo LEAME
+                               *************
+
+
+===========================================================================
+                                  PANORAMA
+---------------------------------------------------------------------------
+SysBar/2 es la £ltima generaci¢n de SysBar, un utilitario de tipo barra. La
+primera versi¢n (Win16) fue escrita en 1995 bajo el influjo de la barra de
+tareas de Win95 (vista en versiones beta tempranas). Ten°a el aspecto del
+WarpCenter del OS/2 Warp 4 (hace 2 a§os ;) con la misma funcionalidad:
+barra de tareas, bandejas y pantallas de informaci¢n. La uso ahora como
+un shell de Win-OS/2, y hasta como un lanzador de programas en Win NT 3.51. 
+
+En esta nueva generaci¢n he decidido dividir el producto entero en un 
+conjunto de peque§os utilitarios. El conjunto consta ahora de cuatro m¢dulos:
+
+ - un reloj (lo que yo realmente extra§aba del SysBar de Windows) que se 
+acomoda bien encima del reloj del WarpCenter :)
+
+ - un conmutador de tareas flotante muy £til
+
+ - un monitor de filtros (el utilitario para leer datos de cualquier n£mero de
+filtros con nombre y mostrarlos en la conveniente forma de una hilera de
+celdas)
+
+ - un reproductor de CD (no me gustan las ventanas enormes como las del
+CD-in-a-Box o el Albatros).
+
+
+===============================================================================
+                                DISTRIBUCI‡N
+-------------------------------------------------------------------------------
+SysBar/2 es un producto *FREEWARE*. Este programa se desarrolla y distribuye
+con la esperanza de que sea £til, pero SIN NINGUNA GARANT÷A.
+
+
+===============================================================================
+                           REQUISITOS DE SISTEMA
+-------------------------------------------------------------------------------
+Todo lo que se necesita es una computadora 486 y el OS/2 Warp 4.0. TambiÇn
+funciona con la versi¢n 3.0 (e incluso con la 2.11; no tengo un sistema as° a
+mano para probar, as° que h†game llegar los resultados si lo intenta).
+
+El reproductor de CD tambiÇn requeire una interfaz de comandos mci de MMOS2
+(as° que hay que tener instalado el soporte multimedia). Est† en mis planes
+reescribir el motor para comandos IOCTL, pero por ahora estoy casi sin tiempo.
+
+
+===============================================================================
+                                INSTALACI‡N
+-------------------------------------------------------------------------------
+No se provee un complicado programa de instalaci¢n. Simplemente descomprima 
+con UNZIP el paquete en cualquier directorio y ≠a disfrutar! ;) Hay un script
+que crea una carpeta, llamado SB2_FLDR.CMD. Lo que hace es crear una carpeta
+para SYSBAR/2 en su escritorio, con todos los °conos de programa necesarios.
+
+Los archivos que hay en el paquete son:
+
+	FILE_ID .DIZ      373  - descripci¢n del paquete
+	History .Eng   13.598  - historia de enmiendas y revisiones (inglÇs)
+	History .Rus   15.403  - historia de enmiendas y revisiones (ruso)
+	ReadMe  .Eng    8.352  - archivo LEAME (inglÇs)
+	ReadMe  .Esp    X.XXX  - archivo LEAME (espa§ol)
+	SB2_CD  .Exe   24.145  - ejecutable del reproductor de CD
+	SB2_CLCK.Exe   20.708  - ejecutable del reloj
+	SB2_FLD1.ICO    4.026  - °cono de carpeta
+	SB2_FLD2.ICO    4.026  - °cono de carpeta abierta
+	SB2_FLDR.CMD    1.094  - script de creaci¢n de carpeta
+	SB2_Pipe.Exe   27.504  - ejecutable del monitor de filtros
+	SB2_TSWT.Exe   31.687  - ejecutable del conmutador de tareas
+	sysbar2 .dll   19.637  - un DLL con subrutinas de interfaz gr†fica comunes
+        \info_src              - ejemplo de script de fuentes de informaci¢n
+
+
+===============================================================================
+                                     USO
+-------------------------------------------------------------------------------
+Todos los m¢dulos tienen el mismo aspecto, comportamiento y controles. Se los
+puede arrastrar a cualquier lugar con el bot¢n izquierdo del mouse e invocar
+un men£ de despliegue con el bot¢n derecho (con una excepci¢n: en el
+Conmutador de Tareas solamente funciona al hacer click en el borde vac°o de la
+ventana; en los dem†s casos se obtiene una acci¢n espec°fica de una tarea).
+
+Todos los m¢dulos tienen modernos cuadros de di†logo de propiedades 
+(desdichadamente, no sÇ c¢mo se presentar†n con versiones viejas de OS/2).
+Todos los cambios que se hacen se reflejan inmediatamente. Cada m¢dulo
+almacena su configuraci¢n en su propio archivo de texto .cfg. Se puede ver y
+modificar estos archivos f†cilemente, si es necesario. TambiÇn se puede
+especificar un nombre de archivo de configuraci¢n como el primer par†metro
+en la l°nea de comando (lo cual es £til, por ejemplo, cuando se invocan
+m£ltiples instancias del monitor de filtros para mostrar diferentes conjuntos
+de filtros).
+
+Todas las acciones son simples y f†ciles de entender. A continuaci¢n
+describirÇ algunas opciones espec°ficas de cada tarea:
+
+* RELOJ
+	S¢lo hace una cosa: muestra la hora, mes y fecha y le permite ajustar esos
+        valores. Eso es todo.
+
+* CONMUTADOR DE TAREAS
+	Muestra un conjunto de °conos que representan todos los trabajos y ventanas
+        actuales. Se los puede filtrar (mostrar u ocultar) y ejecutar un
+        n£mero de acciones. Un click simple sobre un °cono conmutar† a esa
+        tarea. Un doble click minimizar† una ventana abierta. Un click del
+        bot¢n derecho hace aparecer un men£ con las acciones est†ndar de las
+        ventanas. Si lo desea, puede invertir los botones...
+
+* MONITOR DE FILTROS
+	Abre un n£mero de filtros con nombre (en modo de servidor) y lee datos de
+        esas fuentes. Cualquier texto que llegue a travÇs del filtro ser†
+        mostrado en una celda separada (para cada filtro) usando su propio
+        color. Esto es £til para mostrar informaci¢n del sistema, para
+        depurar, enviar mensajes, etcÇtera.
+       Hemos provisto un script de fuente de informaci¢n. Este script de REXX
+        muestra unas pocas maneras sencillas para obtener informaci¢n del
+        sistema como espacio en disco r°gido, tama§o del archivo de
+        intercambio, contenido de directorios de entrada, etcÇtera. Puede ser
+        modificado a voluntad.
+        
+* REPRODUCTOR DE CD
+	Reproduce CDs de audio. Los comandos son: tocar, parar, pausa, expulsar,
+         avanzar pista y retroceder pista. Hay cuatro maneras de mostrar el
+         tiempo: pruebe el bot¢n 00:00.
+        La £nica opci¢n importante es "Autodesactivar". Cuando est†
+         habilitada, hace que el reproductor de CD se apague al detectar un
+         CD que no es de audio (para no interferir con algunas aplicaciones de
+         multimedia). Pero siempre se lo puede activar despuÇs.  
+
+
+===============================================================================
+                                PLANES FUTUROS
+-------------------------------------------------------------------------------
+* REPRODUCTOR DE CD
+	- interfaz IOCTL (≠no m†s multimedia!) (=> Andrew Tershechkin);
+        - reconocimiento de disco, nombre de disco y pista en pantalla;
+        - vinculaci¢n con archivo de letras de canciones (formato *.LYR);
+        - listado de pistas (=> Alexander Bezborodov);
+        - orden de pistas programable (=> Ingmar Hensler).
+
+* RELOJ
+	- alarmas (mensajes de despliegue y agenda) (=> Alexander Ernst);
+        - disposici¢n de componentes de pantalla flexible (=> Igor Fedorenko).
+
+* MONITOR DE FILTROS
+	- fuente de informaci¢n m†s poderosa.
+
+* CONMUTADOR DE TAREAS
+        - comando "minimizar todo" (=> David Cougle).
+
+* !!! NUEVOS COMPONENTES
+        - panel de lanzamiento;
+	- calculadora (=> George Brink).
+
+* !!! IMPORTANTE
+	- Estoy buscando probadores de versiones beta.
+
+
+===============================================================================
+                             CONTACTAR AL AUTOR
+-------------------------------------------------------------------------------
+El autor de la serie de productos SysBar es Dmitry I. Platonoff, ingeniero en
+programaci¢n de 24 a§os de edad de Omsk, Rusia (Siberia Occidental). La ayuda
+lingÅ°stica en espa§ol es de HÇctor M. Monacci. [Linguistic help for Spanish
+comes from HÇctor M. Monacci (*)]
+
+Env°e todas sus notas, sugerencias, informes de errores, etcÇtera, por e-mail.
+Detalle la versi¢n de SysBar/2 y la fuente de la que la obtuvo cuando me env°e
+un mensaje (especialmente si es un informe de errores).
+
+P†gina de soporte WWW: http://www.lab321.ru/~dip/sysbar2/
+
+
+E-mail: dip@lab321.ru
+	2:5004/18.10@fidonet
+	http://www.lab321.ru/~dip
+
+TambiÇn puede encontrarme en IRC como "dip" en los cuartos #OS/2, #os2prog,
+#Russia, #fidorus de los siguientes servidores y grupos de servidores:
+        comicsrv1.microsoft.com :), EFnet, dalnet, etc.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+(*) You can put this or leave it out, of course! (HÇctor)
+

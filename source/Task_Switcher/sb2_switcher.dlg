@@ -1,0 +1,211 @@
+/*
+
+  SysBar/2 Utility Set  version 0.23
+
+  Task Switcher dialogs
+
+  ..................................................................
+
+  Copyright (c) 1995-1999  Dmitry I. Platonoff <dip@platonoff.com>
+  Copyright (c) 2002,04    Max Alekseyev       <relf@os2.ru>
+
+                           All rights reserved
+
+  ..................................................................
+
+  LICENSE
+  ~~~~~~~
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the following
+     disclaimer in the documentation and/or other materials provided
+     with the distribution.
+
+  3. Redistributions of any form whatsoever, as well as all
+     advertising materials mentioning features or use of this
+     software (if any), must include the following acknowledgment:
+     "This product includes software developed by Dmitry I. Platonoff".
+
+  4. The names "SysBar/2" and "Dmitry I. Platonoff" must not be
+     used to endorse or promote products derived from this software
+     without prior written permission. For such permission, please
+     contact dplatonoff@canada.com.
+
+  5. Products derived from this software may not be called
+     "SysBar/2" nor may "Dmitry I. Platonoff" appear in their
+     contributor lists without prior written permission.
+
+  ..................................................................
+
+  DISCLAIMER
+  ~~~~~~~~~~
+  THIS SOFTWARE IS PROVIDED BY THE AUTHOR OR CONTRIBUTORS "AS IS"
+  AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  AUTHOR OR THE CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*/
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "sb2_switcher_res.h"
+
+DLGTEMPLATE DLG_TASK LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Task info", DLG_TASK, 0, 0, 193, 109, NOT FS_DLGBORDER | 
+            FS_BORDER | FS_MOUSEALIGN | WS_VISIBLE, FCF_SYSMENU | 
+            FCF_TITLEBAR
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        ICON            ICO_MAIN, ICO_MAIN, 4, 89, 21, 16
+        LTEXT           "", D_Info_Title, 30, 89, 159, 16, DT_WORDBREAK
+        RTEXT           "Win handle:", D_Info_HWND0, 3, 77, 42, 8
+        LTEXT           "", D_Info_HWND1, 49, 77, 140, 8
+        RTEXT           "Win style:", D_Info_STYLE0, 3, 68, 42, 8
+        LTEXT           "", D_Info_STYLE1, 49, 68, 140, 8
+        RTEXT           "Prog handle:", D_Info_HPROG0, 3, 59, 42, 8
+        LTEXT           "", D_Info_HPROG1, 49, 59, 140, 8
+        RTEXT           "Process ID:", D_Info_PID0, 3, 50, 42, 8
+        LTEXT           "", D_Info_PID1, 49, 50, 140, 8
+        RTEXT           "Session ID:", D_Info_SID0, 3, 41, 42, 8
+        LTEXT           "", D_Info_SID1, 49, 41, 140, 8
+        RTEXT           "Visibility flag:", D_Info_Vis0, 3, 32, 42, 8
+        LTEXT           "", D_Info_Vis1, 49, 32, 140, 8, DT_WORDBREAK
+        RTEXT           "Jump flag:", D_Info_Jump0, 3, 23, 42, 8
+        LTEXT           "", D_Info_Jump1, 49, 23, 140, 8, DT_WORDBREAK
+        RTEXT           "Prog type:", D_Info_PType0, 3, 14, 42, 8
+        LTEXT           "", D_Info_PType1, 49, 14, 140, 8, DT_WORDBREAK
+        DEFPUSHBUTTON   "Close", DID_CANCEL, 3, 3, 186, 10, WS_GROUP
+    END
+END
+
+DLGTEMPLATE DLG_ABOUT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "About SysBar/2 Task Switcher", DLG_ABOUT, 0, 0, 180, 85, NOT 
+            FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "", D_Version, 4, 29, 152, 50
+        LTEXT           "SysBar/2 Task Switcher", 401, 10, 58, 140, 10, DT_VCENTER | DT_WORDBREAK
+        LTEXT           "", D_Copyright1, 10, 47, 140, 10, 	DT_VCENTER | DT_WORDBREAK
+        LTEXT           "", D_Copyright2, 10, 36, 140, 10, 	DT_VCENTER | DT_WORDBREAK
+        ICON            ICO_MAIN, ICO_MAIN, 166, 60, 21, 16, WS_GROUP
+        LTEXT           "Special thanks to Igor Fedorenko", 413, 4, 14, 165, 13, DT_WORDBREAK
+    END
+END
+
+DLGTEMPLATE DLG_FLT_OTHER LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Other filters", DLG_FLT_OTHER, 0, 0, 180, 95, NOT FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        LISTBOX         D_Filter_List, 4, 34, 130, 59, WS_GROUP
+        PUSHBUTTON      "~New", D_Filter_New, 138, 83, 39, 11, WS_GROUP
+        PUSHBUTTON      "~Edit", D_Filter_Edit, 138, 71, 39, 11
+        PUSHBUTTON      "~Clone", D_Filter_Clone, 138, 59, 39, 11
+        PUSHBUTTON      "~Remove", D_Filter_Remove, 138, 47, 39, 11
+        AUTOCHECKBOX    "~Enable", D_Filter_Enable, 140, 32, 36, 10, 
+                        WS_GROUP
+        AUTOCHECKBOX    "Hide if ~PID=0", D_Check_PID, 6, 22, 120, 10, 
+                        WS_GROUP
+        AUTOCHECKBOX    "Hide tasks ~invisible in switchlist", D_Check_Vis, 
+                        6, 12, 120, 10
+        AUTOCHECKBOX    "Hide non-~jumpable", D_Check_Jump, 6, 2, 120, 10
+    END
+END
+
+DLGTEMPLATE DLG_SETTINGS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Display Settings", DLG_SETTINGS, 0, 0, 164, 101, NOT 
+            FS_DLGBORDER
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "Display on top", D_Display, 5, 51, 57, 48
+        AUTORADIOBUTTON "~No", D_Display_None, 12, 81, 45, 10, WS_GROUP
+        AUTORADIOBUTTON "~Always", D_Display_OnTop, 12, 72, 45, 10
+        AUTORADIOBUTTON "Pop-~up", D_Display_Popup, 12, 63, 45, 10
+        AUTORADIOBUTTON "~Pop/hide", D_Display_Popup2, 12, 54, 45, 10
+        GROUPBOX        "Cell size", D_Size, 65, 51, 84, 48
+        AUTORADIOBUTTON "~Small", D_Size_Small, 72, 81, 75, 10, WS_GROUP
+        AUTORADIOBUTTON "~Large", D_Size_Large, 72, 72, 75, 10
+        AUTORADIOBUTTON "~Fit system icons", D_Size_Fit, 72, 63, 75, 10
+        AUTORADIOBUTTON "~Custom", D_Size_Custom, 72, 54, 40, 10
+        SPINBUTTON      D_Size_Size, 113, 54, 31, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | SPBS_JUSTLEFT | WS_GROUP
+        GROUPBOX        "Bind to corner", D_Bind_Corner, 5, 13, 57, 37
+        AUTORADIOBUTTON "~Off", D_Bind_Off, 25, 24, 22, 10, WS_GROUP
+        AUTORADIOBUTTON "", D_Bind_NW, 11, 32, 10, 10
+        AUTORADIOBUTTON "", D_Bind_NE, 48, 32, 10, 10
+        AUTORADIOBUTTON "", D_Bind_SW, 11, 15, 10, 10
+        AUTORADIOBUTTON "", D_Bind_SE, 48, 15, 10, 10
+        GROUPBOX        "Orientation", D_Grow, 65, 13, 84, 37
+        AUTORADIOBUTTON "~East", D_Grow_East, 114, 24, 29, 10, WS_GROUP
+        AUTORADIOBUTTON "Sout~h", D_Grow_South, 93, 15, 32, 10
+        AUTORADIOBUTTON "~West", D_Grow_West, 72, 24, 32, 10
+        AUTORADIOBUTTON "~North", D_Grow_North, 93, 33, 32, 10
+        AUTOCHECKBOX    "~Lock position", D_Lock_Position, 5, 2, 56, 10, 
+                        WS_GROUP
+    END
+END
+
+DLGTEMPLATE DLG_SETTINGS2 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", DLG_SETTINGS2, 0, 0, 160, 90, NOT FS_DLGBORDER | WS_VISIBLE
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        LTEXT           "Background color:", 202, 4, 76, 64, 8
+        CONTROL         "", D_Cell_Color, 5, 15, 56, 61, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        PUSHBUTTON      "~Desc font", D_Font_Settings, 5, 53, 56, 12, 
+                        WS_GROUP
+        AUTOCHECKBOX    "~Swap mouse buttons", D_Mouse_Swap, 6, 36, 100, 10, 
+                        WS_GROUP
+        AUTOCHECKBOX    "~Use switchlist titles", D_Switchlist_Titles, 6, 26, 
+                        100, 10
+        AUTOCHECKBOX    "~Fixed size", D_Fixed_SizeX, 6, 16, 48, 10
+        SPINBUTTON      D_Fixed_Size, 55, 17, 32, 12, SPBS_NUMERICONLY | 
+                        SPBS_MASTER | WS_GROUP
+        LTEXT           "cells", D_Fixed_SizeT, 89, 17, 20, 8
+    END
+END
+
+DLGTEMPLATE DLG_FILTERS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "SysBar/2 Task Switcher Exception", DLG_FILTERS, 0, 0, 208, 63, 
+            FS_SYSMODAL, FCF_SYSMENU | FCF_TITLEBAR
+            PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+    BEGIN
+        GROUPBOX        "Application", D_Filter_Border, 2, 16, 203, 45
+        ENTRYFIELD      "", D_Filter_Title, 68, 44, 127, 7, ES_MARGIN | 
+                        WS_GROUP
+        AUTOCHECKBOX    "~Hide in tasklist", D_Filter_Invisible, 9, 31, 70, 
+                        10, WS_GROUP
+        AUTOCHECKBOX    "~Маке non-jumpable", D_Filter_NonJumpable, 86, 31, 
+                        80, 10
+        LTEXT           "Hide in Task Switcher:", D_Filter_Hide4SwOnlyT, 10, 
+                        20, 76, 8
+        CONTROL         "", D_Filter_Hide4SwOnly, 86, 0, 53, 30, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_GROUP | WS_TABSTOP | 
+                        WS_VISIBLE
+        DEFPUSHBUTTON   "~OK", ICO_MAIN, 51, 2, 50, 11, WS_GROUP
+        PUSHBUTTON      "~Cancel", DID_CANCEL, 103, 2, 50, 11
+        SPINBUTTON      D_Filter_TitleT, 9, 43, 54, 12, SPBS_READONLY | 
+                        SPBS_MASTER | WS_GROUP
+    END
+END
