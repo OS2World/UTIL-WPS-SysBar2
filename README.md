@@ -9,7 +9,8 @@ LICENSE
 
 COMPILE TOOLS
 ===============
-* 
+* OpenWatcom
+* rc
 
 AUTHORS
 ===============
