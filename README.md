@@ -1,4 +1,4 @@
-WPS-SysBar2
+UTIL-WPS-SysBar2
 ===========
 
 A toolbar-style utility set
